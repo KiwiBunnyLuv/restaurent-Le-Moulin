@@ -1,15 +1,58 @@
 <script lang="ts" module>
 	// sample data
-	export const data = {}
-	
+	 const data = {
+    navMain: [
+      {
+        title: "Accueil",
+        url: "/admin"
+      },
+      {
+        title: "Promotions",
+        url: "/admin/promotions",
+      },
+      {
+        title: "Horaire",
+        url: "/admin/horaire",
+      },
+      {
+        title: "Media",
+        url: "/admin/media",
+      },
+      {
+		title: "Menu",
+		url: "/admin/menu",
+	  },
+	  {
+		title: "à propos",
+		url: "/admin/a-propos",
+	  },
 
+
+    ],
+  };
 </script>
 
-<script lang="ts">
-	import * as Sidebar from "$lib/components/ui/sidebar/index.js";
-	import GalleryVerticalEndIcon from "@lucide/svelte/icons/gallery-vertical-end";
-	import type { ComponentProps } from "svelte";
-	let { ref = $bindable(null), ...restProps }: ComponentProps<typeof Sidebar.Root> = $props();
+  <script lang="ts">
+  import * as Sidebar from "$lib/components/ui/sidebar/index.js";
+  import GalleryVerticalEndIcon from "@lucide/svelte/icons/gallery-vertical-end";
+  import type { ComponentProps } from "svelte";
+  let { ref = $bindable(null), ...restProps }: ComponentProps<typeof Sidebar.Root> = $props();
+
+
+	async function logout() {
+		try {
+			await fetch('/logout', { 
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+			// Redirige vers login
+			window.location.href = '/login';
+		} catch (error) {
+			console.error('Erreur de déconnexion:', error);
+		}
+	}
 </script>
 
 <Sidebar.Root {...restProps} bind:ref>
@@ -22,11 +65,13 @@
 							<div
 								class="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg"
 							>
+							
 								<GalleryVerticalEndIcon class="size-4" />
+
 							</div>
 							<div class="flex flex-col gap-0.5 leading-none">
-								<span class="font-medium">Documentation</span>
-								<span class="">v1.0.0</span>
+								<span class="font-medium">Restaurent le Moulin</span>
+								<span class="">Administration</span>
 							</div>
 						</a>
 					{/snippet}
@@ -46,23 +91,15 @@
 								</a>
 							{/snippet}
 						</Sidebar.MenuButton>
-						{#if item.items?.length}
-							<Sidebar.MenuSub>
-								{#each item.items as subItem (subItem.title)}
-									<Sidebar.MenuSubItem>
-										<Sidebar.MenuSubButton isActive={subItem.isActive}>
-											{#snippet child({ props })}
-												<a href={subItem.url} {...props}>{subItem.title}</a>
-											{/snippet}
-										</Sidebar.MenuSubButton>
-									</Sidebar.MenuSubItem>
-								{/each}
-							</Sidebar.MenuSub>
-						{/if}
+
 					</Sidebar.MenuItem>
 				{/each}
 			</Sidebar.Menu>
 		</Sidebar.Group>
+		<button class="mt-auto mb-4 px-4 py-2 text-sm text-red-600 hover:underline" on:click={logout}>
+			se déconnecter
+		</button>
 	</Sidebar.Content>
+	
 	<Sidebar.Rail />
 </Sidebar.Root>
