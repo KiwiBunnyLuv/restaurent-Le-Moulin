@@ -56,12 +56,12 @@ jobs:
           TARGET: "/opt/pocketbase"
 
       - name: Installer dépendances et redémarrer
-              uses: appleboy/ssh-action@v1
-              with:
-                host: ${{ secrets.SSH_HOST }}
-                username: ${{ secrets.SSH_USER }}
-                key: ${{ secrets.SSH_PRIVATE_KEY }}
-                script: |
+        uses: appleboy/ssh-action@v1
+        with:
+            host: ${{ secrets.SSH_HOST }}
+            username: ${{ secrets.SSH_USER }}
+            key: ${{ secrets.SSH_PRIVATE_KEY }}
+            script: |
                   cd /home/samit/lemoulin
                   npm install --production
                   sudo systemctl restart lemoulin --no-pager
