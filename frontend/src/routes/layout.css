@@ -4,6 +4,571 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scrollbar-width: none;           /* Firefox */
+  -ms-overflow-style: none;        /* IE/Edge */
+  scroll-behavior: smooth;
+}
+
+
+
+html::-webkit-scrollbar {
+  display: none;                   /* Chrome, Safari, Opera */
+}
+.snap-section {
+  scroll-snap-align: start;
+}
+/* ========== POLICES ========== */
+@font-face {
+  font-family: 'Bauer Bodoni';
+  src: url('$lib/fonts/Bauer Bodoni Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Garet';
+  src: url('$lib/fonts/Garet-Book.woff2') format('woff2'),
+       url('$lib/fonts/Garet-Book.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Garet';
+  src: url('$lib/fonts/Garet-Heavy.woff2') format('woff2'),
+       url('$lib/fonts/Garet-Heavy.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ========== VARIABLES COULEURS ========== */
+:root {
+  --color-noir: #231F20;
+  --color-creme: #FDF5E7;
+  --color-gris: #B5B1AA;
+  --color-beige: #E6D8C8;
+  --color-brun: #6F5C4B;
+  --color-olive: #8A9A7B;
+  --color-bordeaux: #69181D;
+  --color-dore: #F2BE45;
+}
+
+/* ========== STYLES DE BASE ========== */
+body {
+  font-family: 'Garet', sans-serif;
+  background-color: var(--color-creme);
+  color: var(--color-noir);
+  letter-spacing: 0.02em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Bauer Bodoni', serif;
+  letter-spacing: 0.077em;
+}
+
+/* ========== CLASSES UTILITAIRES ========== */
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 rounded transition-colors;
+    background-color: var(--color-bordeaux);
+    color: var(--color-creme);
+  }
+  .btn-primary:hover {
+    background-color: var(--color-brun);
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 rounded border-2 transition-colors;
+    border-color: var(--color-dore);
+    color: var(--color-noir);
+  }
+  .btn-secondary:hover {
+    background-color: var(--color-dore);
+  }
+}
+
+@layer components {
+  /* Bouton 1 : Bordure grise, fond transparent (Voir nos horaires) */
+  .btn-outline {
+    @apply px-8 py-4 border-2 transition-colors;
+    font-family: 'Garet', sans-serif;
+    border-color: var(--color-gris);
+    color: var(--color-brun);
+    background-color: transparent;
+  }
+  .btn-outline:hover {
+    background-color: var(--color-beige);
+  }
+
+  /* Bouton 2 : Fond doré (En savoir plus) */
+  .btn-dore {
+    @apply px-8 py-4  transition-colors;
+    font-family: 'Garet', sans-serif;
+    background-color: var(--color-dore);
+    color: var(--color-noir);
+  }
+  .btn-dore:hover {
+    background-color: var(--color-brun);
+    color: var(--color-creme);
+  }
+
+  /* Bouton 3 : Bordure blanche, fond transparent (Commander en ligne) */
+  .btn-outline-white {
+    @apply px-8 py-4 rounded-lg border-2 transition-colors;
+    font-family: 'Garet', sans-serif;
+    border-color: var(--color-creme);
+    color: var(--color-creme);
+    background-color: transparent;
+  }
+  .btn-outline-white:hover {
+    background-color: var(--color-creme);
+    color: var(--color-noir);
+  }
+}
+
+	/* ==========================================
+	   PROMOTIONS PAGE — SCOPED STYLES
+	   Utilise les variables de app.css :
+	   --color-noir, --color-creme, --color-gris,
+	   --color-beige, --color-brun, --color-olive,
+	   --color-bordeaux, --color-dore
+	   Polices héritées : Bauer Bodoni (h1-h6), Garet (body)
+	   ========================================== */
+
+	/* ---------- ANIMATIONS ---------- */
+	@keyframes fadeInUp {
+		from {
+			opacity: 0;
+			transform: translateY(24px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	/* ---------- HERO ---------- */
+	.hero {
+		position: relative;
+		overflow: hidden;
+		background-color: var(--color-noir);
+		padding: 5rem 1.5rem;
+		text-align: center;
+	}
+	@media (min-width: 768px) {
+		.hero {
+			padding: 7rem 1.5rem;
+		}
+	}
+
+	.hero-bg {
+		position: absolute;
+		inset: 0;
+		opacity: 0.06;
+		background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23F2BE45' fill-opacity='0.5'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+		background-size: 30px 30px;
+	}
+
+	.hero-content {
+		position: relative;
+		max-width: 48rem;
+		margin: 0 auto;
+	}
+
+	.hero-label {
+		display: inline-block;
+		font-family: 'Garet', sans-serif;
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		letter-spacing: 0.3em;
+		color: var(--color-dore);
+		margin-bottom: 1rem;
+	}
+
+	.hero h1 {
+		font-size: clamp(2.2rem, 5vw, 3.75rem);
+		font-weight: normal;
+		color: var(--color-creme);
+		line-height: 1.15;
+		margin: 0;
+	}
+
+	.hero h1 em {
+		font-style: italic;
+		color: var(--color-dore);
+	}
+
+	.hero-divider {
+		width: 5rem;
+		height: 1px;
+		background-color: var(--color-dore);
+		opacity: 0.45;
+		margin: 1.5rem auto;
+	}
+
+	.hero p {
+		max-width: 30rem;
+		margin: 0 auto;
+		font-family: 'Garet', sans-serif;
+		font-size: 0.95rem;
+		line-height: 1.75;
+		color: var(--color-gris);
+	}
+
+	/* ---------- PROMOS SECTION ---------- */
+	.promos-section {
+		background-color: var(--color-creme);
+		padding: 4rem 1.5rem;
+	}
+	@media (min-width: 768px) {
+		.promos-section {
+			padding: 5rem 1.5rem;
+		}
+	}
+
+	.promos-container {
+		max-width: 72rem;
+		margin: 0 auto;
+	}
+
+	/* ---------- ÉTAT VIDE ---------- */
+	.empty {
+		text-align: center;
+		padding: 4rem 0;
+		max-width: 26rem;
+		margin: 0 auto;
+	}
+
+	.empty-icon {
+		width: 5.5rem;
+		height: 5.5rem;
+		border-radius: 50%;
+		background-color: var(--color-beige);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 0 auto 1.75rem;
+		color: var(--color-dore);
+	}
+
+	.empty h2 {
+		font-size: 1.6rem;
+		font-weight: normal;
+		color: var(--color-noir);
+	}
+
+	.empty p {
+		margin-top: 0.75rem;
+		font-size: 0.9rem;
+		line-height: 1.7;
+		color: var(--color-brun);
+	}
+
+	/* ---------- FEATURED (1 promo) ---------- */
+	.featured {
+		display: flex;
+		flex-direction: column;
+		background-color: white;
+		overflow: hidden;
+		box-shadow: 0 4px 20px rgba(35, 31, 32, 0.08);
+		animation: fadeInUp 0.6s ease-out both;
+		transition:
+			box-shadow 0.5s ease,
+			transform 0.5s ease;
+	}
+	.featured:hover {
+		box-shadow: 0 12px 40px rgba(35, 31, 32, 0.13);
+	}
+
+	@media (min-width: 768px) {
+		.featured {
+			flex-direction: row;
+		}
+	}
+
+	.featured-img {
+		position: relative;
+		overflow: hidden;
+		height: 18rem;
+	}
+	@media (min-width: 768px) {
+		.featured-img {
+			width: 50%;
+			height: auto;
+			min-height: 22rem;
+		}
+	}
+
+	.featured-img img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.7s ease;
+	}
+	.featured:hover .featured-img img {
+		transform: scale(1.04);
+	}
+
+	.featured-badge {
+		position: absolute;
+		top: 1.25rem;
+		left: 1.25rem;
+		background-color: var(--color-dore);
+		padding: 0.3rem 0.9rem;
+		font-family: 'Garet', sans-serif;
+		font-size: 0.65rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.2em;
+		color: var(--color-noir);
+	}
+
+	.featured-body {
+		padding: 2rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+	@media (min-width: 768px) {
+		.featured-body {
+			width: 50%;
+			padding: 3rem;
+		}
+	}
+
+	.featured-body h2 {
+		font-size: clamp(1.6rem, 3vw, 2.25rem);
+		font-weight: normal;
+		color: var(--color-noir);
+		margin: 0;
+	}
+
+	.featured-body p {
+		margin-top: 1.25rem;
+		font-size: 0.9rem;
+		line-height: 1.75;
+		color: var(--color-brun);
+	}
+
+	/* ---------- GRILLES ---------- */
+	.grid {
+		display: grid;
+		gap: 1.75rem;
+	}
+
+	.grid-2 {
+		grid-template-columns: 1fr;
+	}
+	@media (min-width: 768px) {
+		.grid-2 {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	.grid-3 {
+		grid-template-columns: 1fr;
+	}
+	@media (min-width: 640px) {
+		.grid-3 {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+	@media (min-width: 1024px) {
+		.grid-3 {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	/* ---------- CARD ---------- */
+	.card {
+		display: flex;
+		flex-direction: column;
+		background-color: white;
+		overflow: hidden;
+		box-shadow: 0 2px 12px rgba(35, 31, 32, 0.07);
+		animation: fadeInUp 0.6s ease-out both;
+		transition:
+			box-shadow 0.5s ease,
+			transform 0.5s ease;
+	}
+	.card:hover {
+		box-shadow: 0 12px 36px rgba(35, 31, 32, 0.12);
+		transform: translateY(-4px);
+	}
+
+	/* Card image */
+	.card-img {
+		position: relative;
+		overflow: hidden;
+		height: 14rem;
+	}
+	.grid-2 .card-img {
+		height: 16rem;
+	}
+
+	.card-img img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.7s ease;
+	}
+	.card:hover .card-img img {
+		transform: scale(1.05);
+	}
+
+	.card-img-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(to top, rgba(35, 31, 32, 0.35), transparent 60%);
+		pointer-events: none;
+	}
+
+	.card-img-price {
+		position: absolute;
+		bottom: 0.75rem;
+		right: 0.75rem;
+		background-color: var(--color-dore);
+		padding: 0.35rem 0.85rem;
+		font-family: 'Bauer Bodoni', serif;
+		font-size: 1rem;
+		font-weight: normal;
+		color: var(--color-noir);
+		box-shadow: 0 2px 8px rgba(35, 31, 32, 0.2);
+	}
+	.grid-2 .card-img-price {
+		font-size: 1.1rem;
+		padding: 0.4rem 1rem;
+	}
+
+	/* Card placeholder (no image) */
+	.card-placeholder {
+		height: 10rem;
+		background-color: var(--color-beige);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: var(--color-brun);
+		opacity: 0.4;
+	}
+
+	/* Card body */
+	.card-body {
+		padding: 1.5rem;
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+	}
+	.grid-2 .card-body {
+		padding: 1.75rem;
+	}
+
+	.card-body h3 {
+		font-size: 1.2rem;
+		font-weight: normal;
+		color: var(--color-noir);
+		margin: 0;
+	}
+	.grid-2 .card-body h3 {
+		font-size: 1.4rem;
+	}
+
+	.card-body p {
+		margin-top: 0.6rem;
+		font-size: 0.85rem;
+		line-height: 1.7;
+		color: var(--color-brun);
+		flex: 1;
+	}
+
+	/* Shared card elements */
+	.card-label {
+		font-family: 'Garet', sans-serif;
+		font-size: 0.65rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.25em;
+		color: var(--color-dore);
+		margin-bottom: 0.5rem;
+	}
+
+	.card-rule {
+		width: 2.5rem;
+		height: 1px;
+		background-color: var(--color-dore);
+		opacity: 0.4;
+		margin-top: 0.6rem;
+	}
+
+	.card-price {
+		margin-top: 1.25rem;
+		font-family: 'Bauer Bodoni', serif;
+		font-size: 1.75rem;
+		color: var(--color-noir);
+	}
+	.card-price.large {
+		font-size: 2.25rem;
+		margin-top: 1.75rem;
+	}
+
+	/* ---------- CTA ---------- */
+	.cta {
+		background-color: var(--color-noir);
+		padding: 4rem 1.5rem;
+		text-align: center;
+	}
+
+	.cta-inner {
+		max-width: 36rem;
+		margin: 0 auto;
+	}
+
+	.cta h2 {
+		font-size: clamp(1.5rem, 3vw, 1.9rem);
+		font-weight: normal;
+		color: var(--color-creme);
+		margin: 0;
+	}
+
+	.cta p {
+		margin-top: 0.75rem;
+		font-family: 'Garet', sans-serif;
+		font-size: 0.85rem;
+		line-height: 1.7;
+		color: var(--color-gris);
+	}
+
+	.cta-buttons {
+		margin-top: 2rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.75rem;
+	}
+	@media (min-width: 640px) {
+		.cta-buttons {
+			flex-direction: row;
+			justify-content: center;
+		}
+	}
+
+	.cta-buttons a {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		text-decoration: none;
+		font-size: 0.8rem;
+		letter-spacing: 0.1em;
+	}
+
+
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);

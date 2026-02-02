@@ -22,11 +22,6 @@
 		title: "Menu",
 		url: "/admin/menu",
 	  },
-	  {
-		title: "à propos",
-		url: "/admin/a-propos",
-	  },
-
 
     ],
   };

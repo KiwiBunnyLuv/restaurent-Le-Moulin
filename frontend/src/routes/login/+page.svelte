@@ -14,19 +14,7 @@
     }
   }
 </script>
-
 <div class="flex h-screen w-full items-center justify-center px-4">
-  <LoginForm />
-
+  <LoginForm/>
 
 </div>
-
-
-<h1>Connexion admin</h1>
-
-<input placeholder="Email" bind:value={email} />
-<input type="password" placeholder="Mot de passe" bind:value={password} />
-
-<button on:click={login}>Se connecter</button>
-
-{#if error}<p>{error}</p>{/if}
