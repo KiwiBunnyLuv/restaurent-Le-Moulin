@@ -1,0 +1,8 @@
+# PocketBase
+backend/pb_data/
+backend/pocketbase.exe
+backend/pocketbase
+
+# OS
+.DS_Store
+Thumbs.db
