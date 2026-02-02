@@ -1,6 +1,6 @@
 import PocketBase from "pocketbase";
 
-export const pb = new PocketBase(import.meta.env.VITE_PB_URL);
+export const pb = new PocketBase("https://admin.lemoulinwindsor.ca");
 
 export const url = "https://admin.lemoulinwindsor.ca";
 
