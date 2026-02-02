@@ -2,7 +2,7 @@ import PocketBase from "pocketbase";
 
 export const pb = new PocketBase(import.meta.env.VITE_PB_URL);
 
-export const url = import.meta.env.VITE_PB_URL;
+export const url = "https://admin.lemoulinwindsor.ca";
 
 export interface SiteSettings {
   id: string;
