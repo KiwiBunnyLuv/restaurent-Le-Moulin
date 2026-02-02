@@ -2,7 +2,6 @@ import { fail, redirect } from '@sveltejs/kit';
 
 export const actions = {// 
 	default: async ({ request, locals }) => {
-        console.log('✅ LOGIN ACTION HIT');
 		const data = await request.formData();
 		const email = String(data.get('email') ?? '');
 		const password = String(data.get('password') ?? '');
@@ -17,7 +16,6 @@ export const actions = {//
 				.authWithPassword(email, password);
                 //window.location.href = "/admin";
 		} catch {
-            console.log('✅ LOGIN ACTION HIT');
 			return fail(401, { error: 'Invalid email or password' });
 		}
         
