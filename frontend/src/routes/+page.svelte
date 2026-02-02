@@ -96,7 +96,7 @@
 	<div class="relative z-10 text-center text-[var(--color-creme)] px-4">
 		<ScrollReveal direction="up" duration={900} distance={30}>
 			<h1 class="text-5xl md:text-7xl font-serif mb-4 tracking-wider">
-				Restaurant le Moulin wqwe
+				Restaurant le Moulin
 			</h1>
 		</ScrollReveal>
 		<ScrollReveal direction="up" delay={200} duration={900} distance={20}>
