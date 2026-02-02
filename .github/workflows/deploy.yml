@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout du code
@@ -56,13 +56,13 @@ jobs:
           TARGET: "/opt/pocketbase"
 
       - name: Installer dépendances et redémarrer
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd /home/samit/lemoulin
-            npm install --production
-            sudo systemctl restart lemoulin
-            sudo systemctl restart pocketbase
+              uses: appleboy/ssh-action@v1
+              with:
+                host: ${{ secrets.SSH_HOST }}
+                username: ${{ secrets.SSH_USER }}
+                key: ${{ secrets.SSH_PRIVATE_KEY }}
+                script: |
+                  cd /home/samit/lemoulin
+                  npm install --production
+                  sudo systemctl restart lemoulin --no-pager
+                  sudo systemctl restart pocketbase --no-pager
