@@ -1,6 +1,8 @@
     import type { PageServerLoad } from './$types';
+    import { pb } from '$lib/pb';
+    import {url} from '$lib/pb';
 
-    const POCKETBASE_URL = 'http://admin.lemouinwindsor.ca';
+    const POCKETBASE_URL = url;
 
     export const load: PageServerLoad = async ({ fetch }) => {
         try {

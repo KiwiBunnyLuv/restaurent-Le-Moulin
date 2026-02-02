@@ -1,4 +1,3 @@
-       
 <script lang="ts">
 	import Template from "$lib/components/admin_template.svelte";
   

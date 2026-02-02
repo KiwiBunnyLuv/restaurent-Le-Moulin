@@ -45,9 +45,7 @@
 				<Field>
 					<Button type="submit" class="w-full">Login</Button>
 					
-					<FieldDescription class="text-center">
-						Mot de passe oublié? <a href="##">Réinitialiser</a>
-					</FieldDescription>
+
 				</Field>
 			</FieldGroup>
 		</form>
