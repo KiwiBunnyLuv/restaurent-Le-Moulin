@@ -108,6 +108,17 @@ h1, h2, h3, h4, h5, h6 {
     background-color: var(--color-beige);
   }
 
+    .btn-outline-s {
+    @apply px-4 py-2 border-2 transition-colors;
+    font-family: 'Garet', sans-serif;
+    border-color: var(--color-gris);
+    color: var(--color-brun);
+    background-color: transparent;
+  }
+  .btn-outline-s:hover {
+    background-color: var(--color-beige);
+  }
+
   /* Bouton 2 : Fond doré (En savoir plus) */
   .btn-dore {
     @apply px-8 py-4  transition-colors;
@@ -122,7 +133,7 @@ h1, h2, h3, h4, h5, h6 {
 
   /* Bouton 3 : Bordure blanche, fond transparent (Commander en ligne) */
   .btn-outline-white {
-    @apply px-8 py-4 rounded-lg border-2 transition-colors;
+    @apply px-8 py-4 border-2 transition-colors;
     font-family: 'Garet', sans-serif;
     border-color: var(--color-creme);
     color: var(--color-creme);

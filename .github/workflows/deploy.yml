@@ -36,6 +36,7 @@ jobs:
           REMOTE_USER: ${{ secrets.SSH_USER }}
           SOURCE: "frontend/build/"
           TARGET: "/home/samit/lemoulin"
+          ARGS: "-avz --delete"
 
       - name: Déployer package.json
         uses: easingthemes/ssh-deploy@main
