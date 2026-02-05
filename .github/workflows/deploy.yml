@@ -27,6 +27,8 @@ jobs:
       - name: Build SvelteKit
         working-directory: frontend
         run: npm run build
+        env:
+          PUBLIC_POCKETBASE_URL: ${{ vars.PUBLIC_POCKETBASE_URL }}
 
       - name: Déployer sur le serveur
         uses: easingthemes/ssh-deploy@main
