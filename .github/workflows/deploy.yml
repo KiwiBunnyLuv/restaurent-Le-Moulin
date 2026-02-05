@@ -28,7 +28,7 @@ jobs:
         working-directory: frontend
         run: npm run build
         env:
-          PUBLIC_POCKETBASE_URL: ${{ vars.PUBLIC_POCKETBASE_URL }}
+          PUBLIC_POCKETBASE_URL: "https://admin.lemoulinwindsor.ca"
 
       - name: Déployer sur le serveur
         uses: easingthemes/ssh-deploy@main
