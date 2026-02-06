@@ -6,7 +6,7 @@
 	import ScrollReveal from '$lib/components/ScrollReveal.svelte';
 	import Navbar from '$lib/components/Navbar.svelte';
 	import ResponsiveImage from '$lib/components/responsiveImage.svelte';
-	import SplashScreen from '$lib/components/Splashscreen.svelte';
+	import SplashScreen from '$lib/components/SplashScreen.svelte';
 
 	let { data }: { data: PageData } = $props();
 
