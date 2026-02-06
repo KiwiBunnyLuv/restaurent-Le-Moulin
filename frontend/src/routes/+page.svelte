@@ -1,10 +1,11 @@
 <script lang="ts">
 	//route : src/routes/+page.svelte
-    import { onMount } from 'svelte';
+	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
 	import Footer from '$lib/components/footer.svelte';
 	import ScrollReveal from '$lib/components/ScrollReveal.svelte';
 	import Navbar from '$lib/components/Navbar.svelte';
+	import ResponsiveImage from '$lib/components/ResponsiveImage.svelte';
 
 	let { data }: { data: PageData } = $props();
 
@@ -23,32 +24,11 @@
 		return `${pocketbaseUrl}/api/files/${collectionId}/${recordId}/${filename}`;
 	}
 
-	/**
-	 * Ajoute le paramètre thumbnail à une URL Pocketbase
-	 * @param url - URL complète de l'image
-	 * @param width - Largeur souhaitée
-	 * @param height - Hauteur souhaitée (optionnel, utilise width si non fourni)
-	 */
-	function withThumb(url: string, width: number, height?: number): string {
-		if (!url) return '';
-		const h = height ?? width;
-		return `${url}?thumb=${width}x${h}`;
-	}
-
 	function getLogoUrl(): string {
 		if (settings?.logo) {
 			return getFileUrl('Site_Settings', settings.id, settings.logo);
 		}
 		return '';
-	}
-
-	/**
-	 * Retourne l'URL du logo avec thumbnail optimisé
-	 * Logo affiché à ~98x168, on utilise 2x pour retina = 200x340
-	 */
-	function getLogoUrlOptimized(): string {
-		const url = getLogoUrl();
-		return withThumb(url, 200, 340);
 	}
 
 	// Helper pour obtenir l'URL d'un média par index dans le tableau
@@ -61,17 +41,6 @@
 			return getFileUrl('Media', media.id, media.file);
 		}
 		return '';
-	}
-
-	/**
-	 * Retourne l'URL optimisée d'un média par index avec thumbnail
-	 * @param index - Index du média dans le tableau
-	 * @param width - Largeur du thumbnail
-	 * @param height - Hauteur du thumbnail (optionnel)
-	 */
-	function getMediaUrlOptimized(index: number, width: number, height?: number): string {
-		const url = getMediaUrlByIndex(index);
-		return withThumb(url, width, height);
 	}
 
 	// Helper pour obtenir l'alt d'un média par index
@@ -90,15 +59,6 @@
 			return getFileUrl('Menu', menu.id, menu.image);
 		}
 		return '';
-	}
-
-	/**
-	 * Retourne l'URL optimisée de l'image du menu
-	 * Cards affichées à ~180x180, on utilise 2x pour retina = 360x360
-	 */
-	function getMenuImageUrlOptimized(menu: any): string {
-		const url = getMenuImageUrl(menu);
-		return withThumb(url, 360, 360);
 	}
 
 	function getMenuPdfUrl(menu: any): string {
@@ -130,15 +90,16 @@
 <Navbar {settings} {getLogoUrl} />
 
 <!-- ========== HERO SECTION ========== -->
-<section class=" relative h-screen min-h-[600px] flex items-center justify-center hero-parallax">
+<section class="relative h-screen min-h-[600px] flex items-center justify-center hero-parallax">
 	<div class="absolute inset-0 bg-[var(--color-noir)]">
-		<!-- Hero image optimisée: plein écran, on utilise 1920x1080 -->
-		<img 
-			src={getMediaUrlOptimized(0, 1920, 1080)}
+		<!-- Hero image responsive -->
+		<ResponsiveImage
+			src={getMediaUrlByIndex(0)}
 			alt="Restaurant Le Moulin - Façade"
-			class="w-full h-full object-cover opacity-70"
+			sizes={{ mobile: 800, tablet: 1200, desktop: 1920 }}
+			aspectRatio="16/9"
 			loading="eager"
-			fetchpriority="high"
+			className="opacity-70"
 		/>
 		<div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60"></div>
 	</div>
@@ -166,13 +127,12 @@
 </section>
 
 <!-- ========== SECTION PRÉSENTATION ========== -->
-<section class=" py-16 md:py-20 px-6 bg-[var(--color-creme)]">
+<section class="py-16 md:py-20 px-6 bg-[var(--color-creme)]">
 	<div class="max-w-4xl mx-auto text-center my-24 md:my-48">
-
-			<h2 class="text-3xl sm:text-4xl md:text-5xl font-serif mb-8 md:mb-12">
-				<span class="text-[var(--color-noir)]">Local. Chaleureux.</span>
-				<span class="italic text-[var(--color-brun)]"> Délicieux.</span>
-			</h2>
+		<h2 class="text-3xl sm:text-4xl md:text-5xl font-serif mb-8 md:mb-12">
+			<span class="text-[var(--color-noir)]">Local. Chaleureux.</span>
+			<span class="italic text-[var(--color-brun)]"> Délicieux.</span>
+		</h2>
 
 		<ScrollReveal direction="up" delay={300} duration={1000}>
 			<p class="text-[var(--color-noir)] text-base md:text-lg leading-relaxed mb-8 md:mb-12 max-w-2xl mx-auto">
@@ -188,7 +148,7 @@
 </section>
 
 <!-- ========== SECTION MENU ========== -->
-<section id="menu" class=" py-12 md:py-16 px-6 bg-[var(--color-creme)] mb-16 md:mb-32 pb-24 md:pb-48">
+<section id="menu" class="py-12 md:py-16 px-6 bg-[var(--color-creme)] mb-16 md:mb-32 pb-24 md:pb-48">
 	<div class="max-w-5xl mx-auto">
 		<!-- Grid responsive: 1 colonne mobile, 3 colonnes desktop -->
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 mb-6">
@@ -204,12 +164,13 @@
 							class="block w-full aspect-square overflow-hidden shadow-lg group"
 						>
 							{#if menu?.image}
-								<!-- Images menu optimisées: affichées ~180x180, thumbnail 360x360 pour retina -->
-								<img 
-									src={getMenuImageUrlOptimized(menu)} 
-									alt={category} 
-									class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-									loading="lazy"
+								<!-- Menu cards responsive -->
+								<ResponsiveImage
+									src={getMenuImageUrl(menu)}
+									alt={category}
+									sizes={{ mobile: 360, tablet: 360, desktop: 360 }}
+									aspectRatio="1/1"
+									className="group-hover:scale-105 transition-transform duration-500"
 								/>
 							{:else}
 								<div class="w-full h-full bg-[var(--color-beige)] flex items-center justify-center">
@@ -246,12 +207,12 @@
 <!-- ========== PHOTO TRANSITION (image qui se fond dans le crème) ========== -->
 <section class="relative bg-[var(--color-creme)]">
 	<div class="relative w-full h-[25vh] md:h-[45vh] overflow-hidden">
-		<!-- Image transition optimisée: largeur écran, hauteur ~45vh, on utilise 1400x600 -->
-		<img 
-			src={getMediaUrlOptimized(3, 1400, 600)}
+		<!-- Image transition responsive -->
+		<ResponsiveImage
+			src={getMediaUrlByIndex(3)}
 			alt={getMediaAltByIndex(3)}
-			class="w-full h-full object-cover object-center"
-			loading="lazy"
+			sizes={{ mobile: 800, tablet: 1200, desktop: 1600 }}
+			aspectRatio="21/9"
 		/>
 		<!-- Fondu bas : image → crème -->
 		<div class="absolute inset-0 bg-gradient-to-b from-[var(--color-creme)]/20 via-transparent to-[var(--color-creme)]"></div>
@@ -259,7 +220,7 @@
 </section>
 
 <!-- ========== SECTION AMBIANCE ========== -->
-<section class=" relative bg-[var(--color-creme)]">
+<section class="relative bg-[var(--color-creme)]">
 
 	<!-- Titre — grande marge au-dessus, très grande marge en dessous -->
 	<div class="pt-24 md:pt-36 my-12 md:my-16 pb-16 md:pb-40 px-6">
@@ -276,16 +237,16 @@
 	</div>
 
 	<!-- Galerie photos — fidèle à la maquette -->
-	<div class=" max-w-3xl mx-auto px-4 md:px-8 lg:px-12">
+	<div class="max-w-3xl mx-auto px-4 md:px-8 lg:px-12">
 
-		<!-- 1. Grande photo (intérieur du resto, lanternes) - aspect 4/3, max-w ~720px, on utilise 1200x900 -->
+		<!-- 1. Grande photo (intérieur du resto, lanternes) -->
 		<ScrollReveal direction="up" duration={900}>
-			<div class="w-full aspect-[4/3] overflow-hidden ">
-				<img 
-					src={getMediaUrlOptimized(1, 1200, 900)}
+			<div class="w-full aspect-[4/3] overflow-hidden">
+				<ResponsiveImage
+					src={getMediaUrlByIndex(1)}
 					alt={getMediaAltByIndex(1)}
-					class="w-full h-full object-cover"
-					loading="lazy"
+					sizes={{ mobile: 600, tablet: 800, desktop: 1200 }}
+					aspectRatio="4/3"
 				/>
 			</div>
 		</ScrollReveal>
@@ -293,43 +254,40 @@
 		<!-- Gap entre la grande photo et les 3 petites -->
 		<div class="h-3 md:h-4"></div>
 
-		<!-- 2. Trois petites photos en rangée - marges plus petites entre elles (gap-1) -->
-		 <ScrollReveal direction="up" duration={900}>
-		<div class="grid grid-cols-3 gap-3 md:gap-2">
-		
-			{#each [2, 4, 6] as idx, i}
-
-					<div class="aspect-square overflow-hidden ">
-						<img 
-							src={getMediaUrlOptimized(idx, 480, 480)}
+		<!-- 2. Trois petites photos en rangée -->
+		<ScrollReveal direction="up" duration={900}>
+			<div class="grid grid-cols-3 gap-3 md:gap-2">
+				{#each [2, 4, 6] as idx, i}
+					<div class="aspect-square overflow-hidden">
+						<ResponsiveImage
+							src={getMediaUrlByIndex(idx)}
 							alt={getMediaAltByIndex(idx)}
-							class="w-full h-full object-cover"
-							loading="lazy"
+							sizes={{ mobile: 240, tablet: 320, desktop: 400 }}
+							aspectRatio="1/1"
 						/>
 					</div>
-			{/each}
-			
-		</div>
-		 </ScrollReveal>
+				{/each}
+			</div>
+		</ScrollReveal>
 
 		<!-- Gap avant la photo horizontale -->
 		<div class="h-3 md:h-4"></div>
 
-		<!-- 3. Photo horizontale large (le chef) - aspect 2.2/1, max-w ~720px, on utilise 1200x545 -->
+		<!-- 3. Photo horizontale large (le chef) -->
 		<ScrollReveal direction="up" duration={900}>
-			<div class="w-full aspect-[2.2/1]  overflow-hidden ">
-				<img 
-					src={getMediaUrlOptimized(7, 1200, 545)}
+			<div class="w-full aspect-[2.2/1] overflow-hidden">
+				<ResponsiveImage
+					src={getMediaUrlByIndex(7)}
 					alt={getMediaAltByIndex(7)}
-					class="w-full h-full object-cover"
-					loading="lazy"
+					sizes={{ mobile: 600, tablet: 800, desktop: 1200 }}
+					aspectRatio="2.2/1"
 				/>
 			</div>
 		</ScrollReveal>
 
 		<!-- Bouton Voir sur Instagram -->
 		<ScrollReveal direction="up" delay={200} duration={700}>
-			<div class="flex justify-center mt-4 ">
+			<div class="flex justify-center mt-4">
 				<a 
 					href="https://instagram.com/restaurantlemoulin" 
 					target="_blank" 
@@ -344,12 +302,10 @@
 			</div>
 		</ScrollReveal>
 	</div>
-
-	<!-- Très grande marge après les photos avant la section horaires -->
 </section>
 
 <!-- ========== SECTION COMMANDER ========== -->
-<section id="commander" class=" py-16 md:py-24 my-16 md:my-32 lg:py-36 px-6 bg-[var(--color-creme)]">
+<section id="commander" class="py-16 md:py-24 my-16 md:my-32 lg:py-36 px-6 bg-[var(--color-creme)]">
 	<div class="max-w-2xl mx-auto text-center">
 		<ScrollReveal direction="up" duration={800}>
 			<h2 class="text-2xl sm:text-3xl md:text-4xl font-serif text-[var(--color-noir)] mb-3">
@@ -368,16 +324,13 @@
 				Ouvert 7 jours, du matin au soir
 			</p>
 		</ScrollReveal>
-
-
 	</div>
 </section>
 
 <!-- ========== FOOTER ========== -->
- <section id="horaires" class="h-16">
-<Footer {settings} {sortedHoraires}/>
+<section id="horaires" class="h-16">
+	<Footer {settings} {sortedHoraires}/>
 </section>
-
 
 <style>
 	.hero-parallax {
