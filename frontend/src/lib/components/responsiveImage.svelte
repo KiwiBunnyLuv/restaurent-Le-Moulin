@@ -1,4 +1,5 @@
 <script lang="ts">
+    
 	export let src: string;
 	export let alt: string;
 	export let sizes: { mobile: number; tablet: number; desktop: number };
