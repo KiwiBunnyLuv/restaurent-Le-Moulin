@@ -11,6 +11,8 @@
 
 	let phase: 'logo' | 'opening' | 'done' = $state('logo');
 
+
+	
 	onMount(() => {
 		// Phase 1: Afficher le logo pendant un moment
 		const logoTimer = setTimeout(() => {
