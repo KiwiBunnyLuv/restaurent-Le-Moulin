@@ -9,6 +9,9 @@
 
 	let { data }: { data: PageData } = $props();
 
+
+
+	
 	let settings = $derived(data.settings);
 	let horaires = $derived(data.horaires);
 	let menus = $derived(data.menus);
