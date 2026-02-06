@@ -3,6 +3,7 @@
   import { enhance } from "$app/forms";
   import { pb } from "$lib/pb";
 
+
   export let data;
   export let form;
 
@@ -37,6 +38,7 @@
     imagePreview = null;
   }
 </script>
+
 
 <Template>
   <div class="p-6  mx-12">

@@ -108,15 +108,69 @@
 </script>
 
 <svelte:head>
-	<title>{settings?.siteName || 'Le Moulin'} - Restaurant à Windsor</title>
-	<meta name="description" content="Restaurant Le Moulin - Local. Chaleureux. Délicieux. Depuis 2007 à Windsor." />
+  <!-- ===== META DE BASE ===== -->
+  <title>{settings?.siteName || 'Le Moulin'} - Restaurant à Windsor</title>
+  <meta name="description" content="Restaurant Le Moulin à Windsor — cuisine locale et chaleureuse depuis 2007. Déjeuners, dîners, soupers et commande en ligne." />
+  <meta name="keywords" content="restaurant, Windsor, Québec, Le Moulin, déjeuner, dîner, souper, cuisine locale" />
 
+  <!-- ===== OPEN GRAPH (Facebook, iMessage, etc.) ===== -->
+  <meta property="og:type" content="restaurant" />
+  <meta property="og:title" content="Restaurant Le Moulin — Windsor" />
+  <meta property="og:description" content="Local. Chaleureux. Délicieux. Depuis 2007 à Windsor." />
+  <meta property="og:url" content="https://restaurantlemoulin.com" />
+  <meta property="og:image" content="{getMediaUrlByIndex(0)}" />
+  <meta property="og:locale" content="fr_CA" />
+  <meta property="og:site_name" content="Restaurant Le Moulin" />
+
+  <!-- ===== TWITTER CARD ===== -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Restaurant Le Moulin — Windsor" />
+  <meta name="twitter:description" content="Local. Chaleureux. Délicieux. Depuis 2007." />
+  <meta name="twitter:image" content="{getMediaUrlByIndex(0)}" />
+
+  <!-- ===== SCHEMA.ORG (données structurées pour Google) ===== -->
+  {@html `<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "${settings?.siteName || 'Restaurant Le Moulin'}",
+    "image": "${getMediaUrlByIndex(0)}",
+    "url": "https://lemoulinwindsor.com",
+    "telephone": "${settings?.phone || ''}",
+    "email": "${settings?.email || ''}",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "65 Rue Principale S",
+      "addressLocality": "Windsor",
+      "addressRegion": "QC",
+      "postalCode": "J1S 2B6",
+      "addressCountry": "CA"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 45.5676,
+      "longitude": -71.9981
+    },
+    "servesCuisine": "Québécoise",
+    "priceRange": "$$",
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+        "opens": "06:00",
+        "closes": "21:00"
+      }
+    ],
+    "sameAs": [
+      "${settings?.facebook || ''}",
+      "${settings?.instagram || ''}"
+    ]
+  }
+  </script>`}
 </svelte:head>
 
 <!-- ========== SPLASH SCREEN (Animation d'entrée) ========== -->
 <SplashScreen logoUrl={getLogoUrl()} duration={2200} onComplete={onSplashComplete} />
-
-
 
 
 <!-- ========== HEADER / NAVIGATION ========== -->
@@ -253,7 +307,7 @@
 				</div>
 				<div class="w-full max-w-xs md:w-auto">
 					<a 
-						href={getMenuCompletPdfUrl()}
+						href={getMediaUrlByIndex(4)}
 						target="_blank"
 						rel="noopener noreferrer"
 						class="btn-outline text-center w-full block md:px-12"

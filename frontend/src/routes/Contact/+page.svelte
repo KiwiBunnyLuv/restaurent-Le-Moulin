@@ -6,6 +6,7 @@
 	import ScrollReveal from '$lib/components/ScrollReveal.svelte';
 	import Footer from '$lib/components/footer.svelte';
 	import { Mail, Phone, MapPin, Clock, ExternalLink } from 'lucide-svelte';
+	import SplashScreen from '$lib/components/SplashScreen.svelte';
 
 	let { data, form }: { data: PageData; form: ActionData } = $props();
 
@@ -68,7 +69,7 @@
 		content="Contactez le Restaurant Le Moulin à Windsor. Formulaire de contact, adresse, téléphone et horaires d'ouverture."
 	/>
 </svelte:head>
-
+<SplashScreen logoUrl={getLogoUrl()} duration={2200}/>
 <Navbar {settings} {getLogoUrl} />
 
 <!-- ============ HERO ============ -->

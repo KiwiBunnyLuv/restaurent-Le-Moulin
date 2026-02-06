@@ -3,6 +3,7 @@
 	import Navbar from '$lib/components/Navbar.svelte';
 	import ScrollReveal from '$lib/components/ScrollReveal.svelte';
 	import type { PageData } from './$types';
+	import SplashScreen from '$lib/components/SplashScreen.svelte';
 	export let data;
 
 	$: pocketbaseUrl = data.pocketbaseUrl;
@@ -35,6 +36,10 @@
 		content="Découvrez nos promotions actuelles au Restaurant Le Moulin à Windsor."
 	/>
 </svelte:head>
+
+<!-- ========== SPLASH SCREEN (Animation d'entrée) ========== -->
+<SplashScreen logoUrl={getLogoUrl()} duration={2200}/>
+
 <Navbar {settings} {getLogoUrl}/>
 <!-- ============ HERO ============ -->
 <section class="hero">
@@ -101,6 +106,7 @@
 					{#if promo.prix}
 						<div class="card-price large">{promo.prix.toFixed(2)}&nbsp;$</div>
 					{/if}
+					
 				</div>
 			</div>
             </ScrollReveal>
@@ -161,6 +167,7 @@
 								{#if promo.prix}
 									<span class="card-img-price">{promo.prix.toFixed(2)}&nbsp;$</span>
 								{/if}
+								
 							</div>
 						{:else}
 							<div class="card-placeholder">

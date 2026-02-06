@@ -4,6 +4,8 @@
     import { page } from '$app/stores';
 	import Footer from '$lib/components/footer.svelte';
    import type { PageData } from './$types'; 
+    import SplashScreen from '$lib/components/SplashScreen.svelte';
+    
     export let data;
     
     $: pocketbaseUrl = data.pocketbaseUrl;  
@@ -26,7 +28,7 @@
 		return `${pocketbaseUrl}/api/files/${collectionId}/${recordId}/${filename}`;
 	}
 </script>
-
+<SplashScreen logoUrl={getLogoUrl()} duration={2200}/>
 <svelte:head>
     <title>À propos - Restaurant Le Moulin à Windsor</title>
     <meta
