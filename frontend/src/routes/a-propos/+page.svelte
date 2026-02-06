@@ -4,8 +4,8 @@
     import { page } from '$app/stores';
 	import Footer from '$lib/components/footer.svelte';
    import type { PageData } from './$types'; 
-    import SplashScreen from '$lib/components/SplashScreen.svelte';
-    
+    import SplashScreen from '$lib/components/Splashscreen.svelte';
+
     export let data;
     
     $: pocketbaseUrl = data.pocketbaseUrl;  

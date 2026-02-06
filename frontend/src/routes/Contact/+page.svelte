@@ -6,7 +6,7 @@
 	import ScrollReveal from '$lib/components/ScrollReveal.svelte';
 	import Footer from '$lib/components/footer.svelte';
 	import { Mail, Phone, MapPin, Clock, ExternalLink } from 'lucide-svelte';
-	import SplashScreen from '$lib/components/SplashScreen.svelte';
+	import SplashScreen from '$lib/components/Splashscreen.svelte';
 
 	let { data, form }: { data: PageData; form: ActionData } = $props();
 
