@@ -118,7 +118,7 @@
   <meta property="og:title" content="Restaurant Le Moulin — Windsor" />
   <meta property="og:description" content="Local. Chaleureux. Délicieux. Depuis 2007 à Windsor." />
   <meta property="og:url" content="https://restaurantlemoulin.com" />
-  <meta property="og:image" content="{getMediaUrlByIndex(0)}" />
+  <meta property="og:image" content="{getMediaUrlByIndex(999)}" />
   <meta property="og:locale" content="fr_CA" />
   <meta property="og:site_name" content="Restaurant Le Moulin" />
 
@@ -126,7 +126,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Restaurant Le Moulin — Windsor" />
   <meta name="twitter:description" content="Local. Chaleureux. Délicieux. Depuis 2007." />
-  <meta name="twitter:image" content="{getMediaUrlByIndex(0)}" />
+  <meta name="twitter:image" content="{getMediaUrlByIndex(999)}" />
 
   <!-- ===== SCHEMA.ORG (données structurées pour Google) ===== -->
   {@html `<script type="application/ld+json">
