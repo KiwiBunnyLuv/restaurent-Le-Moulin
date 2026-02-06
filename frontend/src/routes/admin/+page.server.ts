@@ -26,7 +26,9 @@ export const actions: Actions = {
     const phone = formData.get('phone') as string;
     const email = formData.get('email') as string;
     const address = formData.get('address') as string;
-    const social_instagram = formData.get('social_instagram') as string;
+    const social_instagram = formData.get('instagram') as string;
+    const facebook = formData.get('facebook') as string;
+    const googleMaps = formData.get('googleMaps') as string;
     const logo = formData.get('logo') as File;
 
     try {
@@ -36,7 +38,9 @@ export const actions: Actions = {
         phone,
         email,
         address,
-        social_instagram
+        social_instagram,
+        facebook,
+        googleMaps
       };
 
       // Si un nouveau logo est uploadé

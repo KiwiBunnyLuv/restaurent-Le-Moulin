@@ -146,7 +146,7 @@
       <!-- Instagram -->
       <div>
         <label for="social_instagram" class="block text-sm font-medium text-gray-700 mb-1">
-          Instagram
+          lien Instagram
         </label>
         <input 
           type="url" 
@@ -157,6 +157,37 @@
           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
         />
       </div>
+
+        <!-- Facebook -->
+      <div>
+        <label for="social_facebook" class="block text-sm font-medium text-gray-700 mb-1">
+          lien Facebook
+        </label>
+        <input 
+          type="url" 
+          id="facebook"
+          name="facebook" 
+          value={data.settings.facebook || ''}
+          placeholder="https://facebook.com/lemoulin"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
+        />
+      </div>
+
+              <!-- Facebook -->
+      <div>
+        <label for="social_facebook" class="block text-sm font-medium text-gray-700 mb-1">
+          lien google maps
+        </label>
+        <input 
+          type="url" 
+          id="googleMaps"
+          name="googleMaps" 
+          value={data.settings.googleMaps || ''}
+          placeholder="https://google.com/maps/dir/?api=1&destination=lemoulin"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
+        />
+      </div>
+
       
       <!-- Bouton submit -->
       <button 

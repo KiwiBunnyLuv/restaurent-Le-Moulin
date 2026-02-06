@@ -65,7 +65,7 @@
 	<nav class="hidden md:flex max-w-xl mx-auto items-center justify-between">
 		<!-- Navigation gauche -->
 		<div class="flex items-center gap-4 w-40">
-			<a href="/#horaires" class="nav-link text-[var(--color-creme)] text-sm tracking-wider  hover:text-[var(--color-dore)] transition-colors">
+			<a href="/Contact" class="nav-link text-[var(--color-creme)] text-sm tracking-wider  hover:text-[var(--color-dore)] transition-colors">
 				Contact
 			</a>
 		<a href="/a-propos" class="nav-link text-[var(--color-creme)] text-sm tracking-wider hover:text-[var(--color-dore)] transition-colors">
@@ -156,18 +156,11 @@
 		aria-modal="true"
 	>
 		<a 
-			href="/#horaires" 
+			href="/Contact" 
 			onclick={closeMobileMenu}
 			class="text-[var(--color-creme)] text-2xl tracking-wider hover:text-[var(--color-dore)] transition-colors"
 		>
-			Horaire
-		</a>
-		<a 
-			href="/#menu" 
-			onclick={closeMobileMenu}
-			class="text-[var(--color-creme)] text-2xl tracking-wider hover:text-[var(--color-dore)] transition-colors"
-		>
-			Menu
+			Contact
 		</a>
 		<a 
 			href="/a-propos" 
@@ -175,6 +168,13 @@
 			class="text-[var(--color-creme)] text-2xl tracking-wider hover:text-[var(--color-dore)] transition-colors"
 		>
 			À propos
+		</a>
+		<a 
+			href="/#menu" 
+			onclick={closeMobileMenu}
+			class="text-[var(--color-creme)] text-2xl tracking-wider hover:text-[var(--color-dore)] transition-colors"
+		>
+			Menu
 		</a>
 		<a 
 			href="/promotions" 

@@ -5,18 +5,23 @@
 	import Footer from '$lib/components/footer.svelte';
 	import ScrollReveal from '$lib/components/ScrollReveal.svelte';
 	import Navbar from '$lib/components/Navbar.svelte';
-	import ResponsiveImage from '$lib/components/ResponsiveImage.svelte';
+	import ResponsiveImage from '$lib/components/responsiveImage.svelte';
+	import SplashScreen from '$lib/components/Splashscreen.svelte';
 
 	let { data }: { data: PageData } = $props();
 
-
-
-	
 	let settings = $derived(data.settings);
 	let horaires = $derived(data.horaires);
 	let menus = $derived(data.menus);
 	let media = $derived(data.media);
 	let pocketbaseUrl = $derived(data.pocketbaseUrl);
+
+	// ========== SPLASH SCREEN STATE ==========
+	let splashDone = $state(false);
+
+	function onSplashComplete() {
+		splashDone = true;
+	}
 
 	// ========== FONCTIONS UTILITAIRES IMAGES ==========
 	
@@ -75,6 +80,24 @@
 		return menus.find((m: any) => m.Categorie?.toLowerCase() === category.toLowerCase());
 	}
 
+	/**
+	 * Retourne l'URL du PDF "menu complet" (tu peux adapter la catégorie ou
+	 * créer une entrée spéciale dans ta BD, ex: catégorie "Complet")
+	 */
+	function getMenuCompletPdfUrl(): string {
+		// Option 1 : chercher une catégorie "Complet" ou "Menu complet"
+		const menuComplet = menus.find(
+			(m: any) => m.Categorie?.toLowerCase() === 'complet' || m.Categorie?.toLowerCase() === 'menu complet'
+		);
+		if (menuComplet) return getMenuPdfUrl(menuComplet);
+
+		// Option 2 (fallback) : utiliser le menu Diner/souper
+		const menuDiner = getMenuByCategory('Diner/souper');
+		if (menuDiner) return getMenuPdfUrl(menuDiner);
+
+		return '#';
+	}
+
 	function sortHoraires(h: any[]): any[] {
 		const jourOrder = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 		return [...h].sort((a, b) => jourOrder.indexOf(a.Jour) - jourOrder.indexOf(b.Jour));
@@ -87,7 +110,14 @@
 <svelte:head>
 	<title>{settings?.siteName || 'Le Moulin'} - Restaurant à Windsor</title>
 	<meta name="description" content="Restaurant Le Moulin - Local. Chaleureux. Délicieux. Depuis 2007 à Windsor." />
+
 </svelte:head>
+
+<!-- ========== SPLASH SCREEN (Animation d'entrée) ========== -->
+<SplashScreen logoUrl={getLogoUrl()} duration={2200} onComplete={onSplashComplete} />
+
+
+
 
 <!-- ========== HEADER / NAVIGATION ========== -->
 <Navbar {settings} {getLogoUrl} />
@@ -153,13 +183,14 @@
 <!-- ========== SECTION MENU ========== -->
 <section id="menu" class="py-12 md:py-16 px-6 bg-[var(--color-creme)] mb-16 md:mb-32 pb-24 md:pb-48">
 	<div class="max-w-5xl mx-auto">
-		<!-- Grid responsive: 1 colonne mobile, 3 colonnes desktop -->
-		<div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 mb-6">
+		
+		<!-- Desktop: Grid 3 colonnes avec images + boutons -->
+		<div class="hidden md:grid md:grid-cols-3 gap-6 mb-6">
 			{#each ['Déjeuner', 'Diner/souper', 'Boisson'] as category, i}
 				{@const menu = getMenuByCategory(category)}
 
 				<ScrollReveal direction="up" duration={500}>
-					<div class="flex flex-col items-center gap-4 max-w-xs mx-auto md:max-w-none">
+					<div class="flex flex-col items-center gap-4">
 						<a 
 							href={menu ? getMenuPdfUrl(menu) : '#'}
 							target="_blank"
@@ -167,7 +198,6 @@
 							class="block w-full aspect-square overflow-hidden shadow-lg group"
 						>
 							{#if menu?.image}
-								<!-- Menu cards responsive -->
 								<ResponsiveImage
 									src={getMenuImageUrl(menu)}
 									alt={category}
@@ -194,12 +224,41 @@
 			{/each}
 		</div>
 
+		<!-- Mobile: Boutons empilés sans images -->
+		<div class="flex flex-col items-center gap-4 md:hidden mb-6">
+			{#each ['Déjeuner', 'Diner/souper', 'Boisson'] as category, i}
+				{@const menu = getMenuByCategory(category)}
+				<ScrollReveal direction="up" delay={i * 100} duration={500}>
+					<div class="w-full max-w-xs">
+						<a 
+							href={menu ? getMenuPdfUrl(menu) : '#'}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="btn-outline text-center w-full block"
+						>
+							{category === 'Boisson' ? 'Boire' : category}
+						</a>
+					</div>
+				</ScrollReveal>
+			{/each}
+		</div>
+
+		<!-- Boutons d'action centrés -->
 		<ScrollReveal direction="up" delay={350} duration={600}>
-			<!-- Bouton centré sur mobile et desktop -->
-			<div class="flex justify-center mt-8 md:mt-0">
+			<div class="flex flex-col items-center gap-4 mt-8 md:mt-0">
 				<div class="w-full max-w-xs md:w-auto">
 					<a href="/promotions" class="btn-dore text-center w-full block md:px-12">
 						Voir nos promotions
+					</a>
+				</div>
+				<div class="w-full max-w-xs md:w-auto">
+					<a 
+						href={getMenuCompletPdfUrl()}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="btn-outline text-center w-full block md:px-12"
+					>
+						Menu de livraison
 					</a>
 				</div>
 			</div>

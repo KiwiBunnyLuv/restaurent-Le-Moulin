@@ -1,37 +1,22 @@
-<script>
-	// route : src/lib/components/footer.svelte
-	import { Mail, Phone, MapPin } from 'lucide-svelte';
+<script lang="ts">
+  import { Mail, Phone, MapPin } from 'lucide-svelte';
 
-export let settings = {
-    address: '65 Rue Principale S, Windsor, QC J1S 2B6',
-    phone: '(819) 845-1234',
-    email: 'contact@restaurantlemoulin.com',
-    horaires: [
-        { Jour: 'Lundi', Heure: '06h - 21h' },
-        { Jour: 'Mardi', Heure: '06h - 21h' },
-        { Jour: 'Mercredi', Heure: '06h - 21h' },
-        { Jour: 'Jeudi', Heure: '06h - 21h' },
-        { Jour: 'Vendredi', Heure: '06h - 21h' },
-        { Jour: 'Samedi', Heure: '06h - 21h' },
-        { Jour: 'Dimanche', Heure: '06h - 21h' }
-    ]
-};
-    
-    // Trier les horaires par jour de la semaine
-    const joursOrdre = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
-    
-    export let sortedHoraires = [];
+  // ✅ Svelte 5 — reçoit les props correctement
+  let {
+    settings,
+    sortedHoraires = []
+  }: {
+    settings: any;
+    sortedHoraires: any[];
+  } = $props();
 
-    
-    if (settings?.horaires) {
-        sortedHoraires = settings.horaires.slice().sort((a, b) => {
-            return joursOrdre.indexOf(a.Jour) - joursOrdre.indexOf(b.Jour);
-        });
-    }
+  const currentYear = new Date().getFullYear();
 
-	// Année courante pour le copyright
-	const currentYear = new Date().getFullYear();
-
+  // Debug temporaire — retire ça après
+  $effect(() => {
+    console.log('Footer settings reçu:', settings);
+    console.log('Facebook:', settings?.facebook);
+  });
 </script>
 
 <footer id="contact" class="relative bg-[var(--color-noir)] text-[var(--color-creme)]">
@@ -39,16 +24,16 @@ export let settings = {
 		<!-- Carte Google Maps -->
 		<div class=" md:h-auto">
 			<iframe
-				src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2788.5!2d-71.9!3d45.4!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDXCsDI0JzAwLjAiTiA3McKwNTQnMDAuMCJX!5e0!3m2!1sfr!2sca!4v1234567890"
-				width="100%"
-				height="100%"
-				style="border:0;"
-				allowfullscreen=""
-				loading="lazy"
-				referrerpolicy="no-referrer-when-downgrade"
-				title="Localisation du Restaurant Le Moulin"
-				class="min-h-[300px] md:min-h-[400px]"
-			></iframe>
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2788.5!2d-71.9!3d45.4!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cb7b8c8b8c8b8c8%3A0x1234567890abcdef!2s45%20Rue%20Principale%20S%2C%20Windsor%2C%20QC%20J1S%202B6!5e0!3m2!1sfr!2sca!4v1234567890"
+    width="100%"
+    height="100%"
+    style="border:0;"
+    allowfullscreen=""
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+    title="Localisation du Restaurant Le Moulin"
+    class="min-h-[300px] md:min-h-[400px]"
+></iframe>
 		</div>
 
 		<!-- Informations de contact -->
@@ -79,6 +64,10 @@ export let settings = {
 						{/each}
 					</div>
 				</div>
+
+				<a href="/Contact" class="hover:text-[var(--color-dore)] transition-colors">
+   				 Nous joindre
+				</a>
 
 				<!-- Téléphone -->
 				{#if settings?.phone}
@@ -112,7 +101,7 @@ export let settings = {
 			<!-- Réseaux sociaux -->
 			<div class="flex items-center gap-4">
 				<a 
-					href="https://facebook.com" 
+					href={settings?.facebook}
 					target="_blank" 
 					rel="noopener noreferrer"
 					class="hover:text-[var(--color-dore)] transition-colors"
@@ -123,7 +112,7 @@ export let settings = {
 					</svg>
 				</a>
 				<a 
-					href="https://instagram.com" 
+					href={settings?.instagram}
 					target="_blank" 
 					rel="noopener noreferrer"
 					class="hover:text-[var(--color-dore)] transition-colors"
@@ -134,7 +123,7 @@ export let settings = {
 					</svg>
 				</a>
 				<a 
-					href="https://google.com/maps" 
+					href={settings?.googleMaps}
 					target="_blank" 
 					rel="noopener noreferrer"
 					class="hover:text-[var(--color-dore)] transition-colors"
