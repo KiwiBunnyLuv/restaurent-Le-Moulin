@@ -7,7 +7,7 @@
 
   async function login() {
     try {
-      await pb.collection("admin").authWithPassword(email, password);
+      await pb.collection("cms_admins").authWithPassword(email, password);
       window.location.href = "/admin";
     } catch (e) {
       error = "Identifiants invalides";

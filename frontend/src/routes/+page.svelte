@@ -214,7 +214,7 @@
 </section>
 
 <!-- ========== SECTION PRÉSENTATION ========== -->
-<section class="py-16 md:py-20 px-6 bg-[var(--color-creme)]">
+<section class="pt-16 md:pt-20 px-6 bg-[var(--color-creme)]">
 	<div class="max-w-4xl mx-auto text-center my-24 md:my-48">
 		<h2 class="text-3xl sm:text-4xl md:text-5xl font-serif mb-8 md:mb-12">
 			<span class="text-[var(--color-noir)]">Local. Chaleureux.</span>
@@ -235,7 +235,7 @@
 </section>
 
 <!-- ========== SECTION MENU ========== -->
-<section id="menu" class="py-12 md:py-16 px-6 bg-[var(--color-creme)] mb-16 md:mb-32 pb-24 md:pb-48">
+<section id="menu" class="py-12 md:pb-16 px-6 bg-[var(--color-creme)] mb-16 md:mb-32 pb-24 md:pb-48">
 	<div class="max-w-5xl mx-auto">
 		
 		<!-- Desktop: Grid 3 colonnes avec images + boutons -->
