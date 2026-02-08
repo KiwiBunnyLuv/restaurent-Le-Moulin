@@ -12,11 +12,6 @@
 
 	const currentYear = new Date().getFullYear();
 
-	// Debug temporaire — retire ça après
-	$effect(() => {
-		console.log('Footer settings reçu:', settings);
-		console.log('Facebook:', settings?.facebook);
-	});
 </script>
 
 <footer id="contact" class="relative bg-[var(--color-noir)] text-[var(--color-creme)]">

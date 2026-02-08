@@ -192,20 +192,20 @@
 			sizes={{ mobile: 800, tablet: 1200, desktop: 1920 }}
 			aspectRatio="16/9"
 			loading="eager"
+			fetchpriority="high"
+			decoding="sync"
 			className="opacity-70"
-		/>
+            />
 		<div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60"></div>
 	</div>
 
 	<div class="relative z-10 px-4 text-center text-[var(--color-creme)]">
-		<ScrollReveal direction="up" duration={900} distance={30}>
 			<h1 class="mb-4 font-serif text-4xl tracking-wider sm:text-5xl md:text-7xl">
 				Restaurant le Moulin
 			</h1>
-		</ScrollReveal>
 		<ScrollReveal direction="up" delay={200} duration={900} distance={20}>
 			<p class="mb-2 text-base tracking-wide sm:text-lg md:text-xl">
-				{settings?.address || '2180 QC-161, Marston, QC G6B 2V8'}
+				{settings?.address || '45, rue principal S, Windsor QC, J1S 2B4'}
 			</p>
 		</ScrollReveal>
 		<ScrollReveal direction="up" delay={400} duration={900}>
