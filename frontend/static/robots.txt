@@ -1,3 +1,8 @@
 User-agent: *
 Allow: /
+
 Sitemap: https://lemoulinwindsor.ca/sitemap.xml
+
+# Bloquer l'indexation du panneau admin
+Disallow: /admin
+Disallow: /login

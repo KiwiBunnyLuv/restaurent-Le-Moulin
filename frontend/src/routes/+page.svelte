@@ -24,7 +24,7 @@
 	}
 
 	// ========== FONCTIONS UTILITAIRES IMAGES ==========
-	
+
 	/**
 	 * Génère l'URL de base d'un fichier Pocketbase
 	 */
@@ -87,7 +87,8 @@
 	function getMenuCompletPdfUrl(): string {
 		// Option 1 : chercher une catégorie "Complet" ou "Menu complet"
 		const menuComplet = menus.find(
-			(m: any) => m.Categorie?.toLowerCase() === 'complet' || m.Categorie?.toLowerCase() === 'menu complet'
+			(m: any) =>
+				m.Categorie?.toLowerCase() === 'complet' || m.Categorie?.toLowerCase() === 'menu complet'
 		);
 		if (menuComplet) return getMenuPdfUrl(menuComplet);
 
@@ -104,32 +105,37 @@
 	}
 
 	let sortedHoraires = $derived(sortHoraires(horaires));
-
 </script>
 
 <svelte:head>
-  <!-- ===== META DE BASE ===== -->
-  <title>{settings?.siteName || 'Le Moulin'} - Restaurant à Windsor</title>
-  <meta name="description" content="Restaurant Le Moulin à Windsor — cuisine locale et chaleureuse depuis 2007. Déjeuners, dîners, soupers et commande en ligne." />
-  <meta name="keywords" content="restaurant, Windsor, Québec, Le Moulin, déjeuner, dîner, souper, cuisine locale" />
+	<!-- ===== META DE BASE ===== -->
+	<title>{settings?.siteName || 'Le Moulin'} - Restaurant à Windsor</title>
+	<meta
+		name="description"
+		content="Restaurant Le Moulin à Windsor — cuisine locale et chaleureuse depuis 2007. Déjeuners, dîners, soupers et commande en ligne."
+	/>
+	<meta
+		name="keywords"
+		content="restaurant, Windsor, Québec, Le Moulin, déjeuner, dîner, souper, cuisine locale"
+	/>
 
-  <!-- ===== OPEN GRAPH (Facebook, iMessage, etc.) ===== -->
-  <meta property="og:type" content="restaurant" />
-  <meta property="og:title" content="Restaurant Le Moulin — Windsor" />
-  <meta property="og:description" content="Local. Chaleureux. Délicieux. Depuis 2007 à Windsor." />
-  <meta property="og:url" content="https://restaurantlemoulin.com" />
-  <meta property="og:image" content="{getMediaUrlByIndex(8)}" />
-  <meta property="og:locale" content="fr_CA" />
-  <meta property="og:site_name" content="Restaurant Le Moulin" />
+	<!-- ===== OPEN GRAPH (Facebook, iMessage, etc.) ===== -->
+	<meta property="og:type" content="restaurant" />
+	<meta property="og:title" content="Restaurant Le Moulin — Windsor" />
+	<meta property="og:description" content="Local. Chaleureux. Délicieux. Depuis 2007 à Windsor." />
+	<meta property="og:url" content="https://lemoulinwindsor.ca" />
+	<meta property="og:image" content={getMediaUrlByIndex(8)} />
+	<meta property="og:locale" content="fr_CA" />
+	<meta property="og:site_name" content="Restaurant Le Moulin" />
 
-  <!-- ===== TWITTER CARD ===== -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Restaurant Le Moulin — Windsor" />
-  <meta name="twitter:description" content="Local. Chaleureux. Délicieux. Depuis 2007." />
-  <meta name="twitter:image" content="{getMediaUrlByIndex(8)}" />
+	<!-- ===== TWITTER CARD ===== -->
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="Restaurant Le Moulin — Windsor" />
+	<meta name="twitter:description" content="Local. Chaleureux. Délicieux. Depuis 2007." />
+	<meta name="twitter:image" content={getMediaUrlByIndex(8)} />
 
-  <!-- ===== SCHEMA.ORG (données structurées pour Google) ===== -->
-  {@html `<script type="application/ld+json">
+	<!-- ===== SCHEMA.ORG (données structurées pour Google) ===== -->
+	{@html `<script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Restaurant",
@@ -169,15 +175,15 @@
   </script>`}
 </svelte:head>
 
-<!-- ========== SPLASH SCREEN (Animation d'entrée) ========== -->
-<SplashScreen logoUrl={getLogoUrl()} duration={2200} onComplete={onSplashComplete} />
 
+<!-- ========== SPLASH SCREEN (Animation d'entrée) ========== -->
+<SplashScreen logoUrl={getLogoUrl()} duration={1000} onComplete={onSplashComplete} />
 
 <!-- ========== HEADER / NAVIGATION ========== -->
 <Navbar {settings} {getLogoUrl} />
 
 <!-- ========== HERO SECTION ========== -->
-<section class="relative h-screen min-h-[600px] flex items-center justify-center hero-parallax">
+<section class="hero-parallax relative flex h-screen min-h-[600px] items-center justify-center">
 	<div class="absolute inset-0 bg-[var(--color-noir)]">
 		<!-- Hero image responsive -->
 		<ResponsiveImage
@@ -191,21 +197,21 @@
 		<div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60"></div>
 	</div>
 
-	<div class="relative z-10 text-center text-[var(--color-creme)] px-4">
+	<div class="relative z-10 px-4 text-center text-[var(--color-creme)]">
 		<ScrollReveal direction="up" duration={900} distance={30}>
-			<h1 class="text-4xl sm:text-5xl md:text-7xl font-serif mb-4 tracking-wider">
+			<h1 class="mb-4 font-serif text-4xl tracking-wider sm:text-5xl md:text-7xl">
 				Restaurant le Moulin
 			</h1>
 		</ScrollReveal>
 		<ScrollReveal direction="up" delay={200} duration={900} distance={20}>
-			<p class="text-base sm:text-lg md:text-xl mb-2 tracking-wide">
+			<p class="mb-2 text-base tracking-wide sm:text-lg md:text-xl">
 				{settings?.address || '2180 QC-161, Marston, QC G6B 2V8'}
 			</p>
 		</ScrollReveal>
 		<ScrollReveal direction="up" delay={400} duration={900}>
-			<a 
-				href="https://order.ueat.io/integration/67231610-fef4-425a-b795-82f638e434ec/fr#/" 
-				class="btn-outline-white inline-block mt-6"
+			<a
+				href="https://order.ueat.io/integration/67231610-fef4-425a-b795-82f638e434ec/fr#/"
+				class="btn-outline-white mt-6 inline-block"
 			>
 				Commander en ligne
 			</a>
@@ -214,42 +220,45 @@
 </section>
 
 <!-- ========== SECTION PRÉSENTATION ========== -->
-<section class="pt-16 md:pt-20 px-6 bg-[var(--color-creme)]">
-	<div class="max-w-4xl mx-auto text-center my-24 md:my-48">
-		<h2 class="text-3xl sm:text-4xl md:text-5xl font-serif mb-8 md:mb-12">
+<section class="bg-[var(--color-creme)] px-6 pt-16 md:pt-20">
+	<div class="mx-auto my-24 max-w-4xl text-center md:my-48">
+		<h2 class="mb-8 font-serif text-3xl sm:text-4xl md:mb-12 md:text-5xl">
 			<span class="text-[var(--color-noir)]">Local. Chaleureux.</span>
-			<span class="italic text-[var(--color-brun)]"> Délicieux.</span>
+			<span class="text-[var(--color-brun)] italic"> Délicieux.</span>
 		</h2>
 
 		<ScrollReveal direction="up" delay={300} duration={1000}>
-			<p class="text-[var(--color-noir)] text-base md:text-lg leading-relaxed mb-8 md:mb-12 max-w-2xl mx-auto">
-				Depuis 2007, le Restaurant Le Moulin n'est pas seulement une adresse à Windsor, c'est un véritable point de rassemblement familiale, un lieu les saveurs rencontrent les souvenirs.
+			<p
+				class="mx-auto mb-8 max-w-2xl text-base leading-relaxed text-[var(--color-noir)] md:mb-12 md:text-lg"
+			>
+				Depuis 2007, le Restaurant Le Moulin n'est pas seulement une adresse à Windsor, c'est un
+				véritable point de rassemblement familiale, un lieu les saveurs rencontrent les souvenirs.
 			</p>
 		</ScrollReveal>
 		<ScrollReveal direction="up" delay={400} duration={1000}>
-			<a href="#apropos" class="btn-dore inline-block">
-				En savoir plus
-			</a>
+			<a href="#apropos" class="btn-dore inline-block"> En savoir plus </a>
 		</ScrollReveal>
 	</div>
 </section>
 
 <!-- ========== SECTION MENU ========== -->
-<section id="menu" class="py-12 md:pb-16 px-6 bg-[var(--color-creme)] mb-16 md:mb-32 pb-24 md:pb-48">
-	<div class="max-w-5xl mx-auto">
-		
+<section
+	id="menu"
+	class="mb-16 bg-[var(--color-creme)] px-6 py-12 pb-24 md:mb-32 md:pb-16 md:pb-48"
+>
+	<div class="mx-auto max-w-5xl">
 		<!-- Desktop: Grid 3 colonnes avec images + boutons -->
-		<div class="hidden md:grid md:grid-cols-3 gap-6 mb-6">
+		<div class="mb-6 hidden gap-6 md:grid md:grid-cols-3">
 			{#each ['Déjeuner', 'Diner/souper', 'Boisson'] as category, i}
 				{@const menu = getMenuByCategory(category)}
 
 				<ScrollReveal direction="up" duration={500}>
 					<div class="flex flex-col items-center gap-4">
-						<a 
+						<a
 							href={menu ? getMenuPdfUrl(menu) : '#'}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="block w-full aspect-square overflow-hidden shadow-lg group"
+							class="group block aspect-square w-full overflow-hidden shadow-lg"
 						>
 							{#if menu?.image}
 								<ResponsiveImage
@@ -260,16 +269,16 @@
 									className="group-hover:scale-105 transition-transform duration-500"
 								/>
 							{:else}
-								<div class="w-full h-full bg-[var(--color-beige)] flex items-center justify-center">
+								<div class="flex h-full w-full items-center justify-center bg-[var(--color-beige)]">
 									<span class="text-[var(--color-gris)]">{category}</span>
 								</div>
 							{/if}
 						</a>
-						<a 
+						<a
 							href={menu ? getMenuPdfUrl(menu) : '#'}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="btn-outline text-center w-full block"
+							class="btn-outline block w-full text-center"
 						>
 							{category === 'Boisson' ? 'Boire' : category}
 						</a>
@@ -279,16 +288,16 @@
 		</div>
 
 		<!-- Mobile: Boutons empilés sans images -->
-		<div class="flex flex-col items-center gap-4 md:hidden mb-6">
+		<div class="mb-6 flex flex-col items-center gap-4 md:hidden">
 			{#each ['Déjeuner', 'Diner/souper', 'Boisson'] as category, i}
 				{@const menu = getMenuByCategory(category)}
 				<ScrollReveal direction="up" delay={i * 100} duration={500}>
 					<div class="w-full max-w-xs">
-						<a 
+						<a
 							href={menu ? getMenuPdfUrl(menu) : '#'}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="btn-outline text-center w-full block"
+							class="btn-outline block w-full text-center"
 						>
 							{category === 'Boisson' ? 'Boire' : category}
 						</a>
@@ -299,18 +308,18 @@
 
 		<!-- Boutons d'action centrés -->
 		<ScrollReveal direction="up" delay={350} duration={600}>
-			<div class="flex flex-col items-center gap-4 mt-8 md:mt-0">
+			<div class="mt-8 flex flex-col items-center gap-4 md:mt-0">
 				<div class="w-full max-w-xs md:w-auto">
-					<a href="/promotions" class="btn-dore text-center w-full block md:px-12">
+					<a href="/promotions" class="btn-dore block w-full text-center md:px-12">
 						Voir nos promotions
 					</a>
 				</div>
 				<div class="w-full max-w-xs md:w-auto">
-					<a 
+					<a
 						href={getMediaUrlByIndex(4)}
 						target="_blank"
 						rel="noopener noreferrer"
-						class="btn-outline text-center w-full block md:px-12"
+						class="btn-outline block w-full text-center md:px-12"
 					>
 						Menu de livraison
 					</a>
@@ -322,7 +331,7 @@
 
 <!-- ========== PHOTO TRANSITION (image qui se fond dans le crème) ========== -->
 <section class="relative bg-[var(--color-creme)]">
-	<div class="relative w-full h-[25vh] md:h-[45vh] overflow-hidden">
+	<div class="relative h-[25vh] w-full overflow-hidden md:h-[45vh]">
 		<!-- Image transition responsive -->
 		<ResponsiveImage
 			src={getMediaUrlByIndex(3)}
@@ -331,21 +340,22 @@
 			aspectRatio="21/9"
 		/>
 		<!-- Fondu bas : image → crème -->
-		<div class="absolute inset-0 bg-gradient-to-b from-[var(--color-creme)]/20 via-transparent to-[var(--color-creme)]"></div>
+		<div
+			class="absolute inset-0 bg-gradient-to-b from-[var(--color-creme)]/20 via-transparent to-[var(--color-creme)]"
+		></div>
 	</div>
 </section>
 
 <!-- ========== SECTION AMBIANCE ========== -->
 <section class="relative bg-[var(--color-creme)]">
-
 	<!-- Titre — grande marge au-dessus, très grande marge en dessous -->
-	<div class="pt-24 md:pt-36 my-12 md:my-16 pb-16 md:pb-40 px-6">
+	<div class="my-12 px-6 pt-24 pb-16 md:my-16 md:pt-36 md:pb-40">
 		<ScrollReveal direction="up" duration={800}>
 			<div class="text-center">
-				<h2 class="text-2xl sm:text-3xl md:text-4xl font-serif text-[var(--color-noir)] mb-3">
+				<h2 class="mb-3 font-serif text-2xl text-[var(--color-noir)] sm:text-3xl md:text-4xl">
 					Du brunch lumineux aux soirées chaleureuses.
 				</h2>
-				<p class="text-[var(--color-brun)] text-sm md:text-base lg:text-lg italic">
+				<p class="text-sm text-[var(--color-brun)] italic md:text-base lg:text-lg">
 					Un lieu pour se retrouver.
 				</p>
 			</div>
@@ -353,11 +363,10 @@
 	</div>
 
 	<!-- Galerie photos — fidèle à la maquette -->
-	<div class="max-w-3xl mx-auto px-4 md:px-8 lg:px-12">
-
+	<div class="mx-auto max-w-3xl px-4 md:px-8 lg:px-12">
 		<!-- 1. Grande photo (intérieur du resto, lanternes) -->
 		<ScrollReveal direction="up" duration={900}>
-			<div class="w-full aspect-[4/3] overflow-hidden">
+			<div class="aspect-[4/3] w-full overflow-hidden">
 				<ResponsiveImage
 					src={getMediaUrlByIndex(1)}
 					alt={getMediaAltByIndex(1)}
@@ -391,7 +400,7 @@
 
 		<!-- 3. Photo horizontale large (le chef) -->
 		<ScrollReveal direction="up" duration={900}>
-			<div class="w-full aspect-[2.2/1] overflow-hidden">
+			<div class="aspect-[2.2/1] w-full overflow-hidden">
 				<ResponsiveImage
 					src={getMediaUrlByIndex(7)}
 					alt={getMediaAltByIndex(7)}
@@ -403,15 +412,17 @@
 
 		<!-- Bouton Voir sur Instagram -->
 		<ScrollReveal direction="up" delay={200} duration={700}>
-			<div class="flex justify-center mt-4">
-				<a 
-					href="https://instagram.com/restaurantlemoulin" 
-					target="_blank" 
+			<div class="mt-4 flex justify-center">
+				<a
+					href="https://instagram.com/restaurantlemoulin"
+					target="_blank"
 					rel="noopener noreferrer"
 					class="btn-outline-s inline-flex items-center gap-2"
 				>
-					<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-						<path d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"/>
+					<svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+						<path
+							d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
+						/>
 					</svg>
 					Voir sur Instagram
 				</a>
@@ -421,31 +432,32 @@
 </section>
 
 <!-- ========== SECTION COMMANDER ========== -->
-<section id="commander" class="py-16 md:py-24 my-16 md:my-32 lg:py-36 px-6 bg-[var(--color-creme)]">
-	<div class="max-w-2xl mx-auto text-center">
+<section id="commander" class="my-16 bg-[var(--color-creme)] px-6 py-16 md:my-32 md:py-24 lg:py-36">
+	<div class="mx-auto max-w-2xl text-center">
 		<ScrollReveal direction="up" duration={800}>
-			<h2 class="text-2xl sm:text-3xl md:text-4xl font-serif text-[var(--color-noir)] mb-3">
+			<h2 class="mb-3 font-serif text-2xl text-[var(--color-noir)] sm:text-3xl md:text-4xl">
 				Depuis 2007 à Windsor
 			</h2>
-			<p class="text-[var(--color-brun)] text-sm md:text-base lg:text-lg mb-16 md:mb-24">
+			<p class="mb-16 text-sm text-[var(--color-brun)] md:mb-24 md:text-base lg:text-lg">
 				Le Moulin est ouvert pour vous recevoir.
 			</p>
 		</ScrollReveal>
 
 		<ScrollReveal direction="up" delay={200} duration={800}>
-			<a href="https://order.ueat.io/integration/67231610-fef4-425a-b795-82f638e434ec/fr#/" class="btn-outline inline-block mb-4">
+			<a
+				href="https://order.ueat.io/integration/67231610-fef4-425a-b795-82f638e434ec/fr#/"
+				class="btn-outline mb-4 inline-block"
+			>
 				Commander en ligne
 			</a>
-			<p class="text-[var(--color-gris)] text-xs md:text-sm">
-				Ouvert 7 jours, du matin au soir
-			</p>
+			<p class="text-xs text-[var(--color-gris)] md:text-sm">Ouvert 7 jours, du matin au soir</p>
 		</ScrollReveal>
 	</div>
 </section>
 
 <!-- ========== FOOTER ========== -->
 <section id="horaires" class="h-16">
-	<Footer {settings} {sortedHoraires}/>
+	<Footer {settings} {sortedHoraires} />
 </section>
 
 <style>

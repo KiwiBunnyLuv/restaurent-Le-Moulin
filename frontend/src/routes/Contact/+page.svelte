@@ -63,13 +63,28 @@
 </script>
 
 <svelte:head>
-	<title>Contact - Restaurant Le Moulin à Windsor</title>
-	<meta
-		name="description"
-		content="Contactez le Restaurant Le Moulin à Windsor. Formulaire de contact, adresse, téléphone et horaires d'ouverture."
-	/>
+  <title>Contact — {settings?.siteName || 'Restaurant Le Moulin'} à Windsor</title>
+  <meta name="description" content="Contactez le Restaurant Le Moulin à Windsor. Formulaire de contact, téléphone, adresse et horaires d'ouverture." />
+  <link rel="canonical" href="https://lemoulinwindsor.ca/contact" />
+
+  <!-- ===== OPEN GRAPH ===== -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Nous joindre — Restaurant Le Moulin" />
+  <meta property="og:description" content="Une question, une réservation ? Contactez Le Moulin à Windsor par téléphone ou formulaire." />
+  <meta property="og:url" content="https://lemoulinwindsor.ca/contact" />
+  <meta property="og:image" content={getLogoUrl()} />
+  <meta property="og:locale" content="fr_CA" />
+  <meta property="og:site_name" content="Restaurant Le Moulin" />
+
+  <!-- ===== TWITTER CARD ===== -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Nous joindre — Restaurant Le Moulin" />
+  <meta name="twitter:description" content="Une question, une réservation ? Contactez Le Moulin à Windsor." />
+  <meta name="twitter:image" content={getLogoUrl()} />
 </svelte:head>
-<SplashScreen logoUrl={getLogoUrl()} duration={2200}/>
+
+
+<SplashScreen logoUrl={getLogoUrl()} duration={1000}/>
 <Navbar {settings} {getLogoUrl} />
 
 <!-- ============ HERO ============ -->

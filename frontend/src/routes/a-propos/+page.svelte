@@ -28,14 +28,29 @@
 		return `${pocketbaseUrl}/api/files/${collectionId}/${recordId}/${filename}`;
 	}
 </script>
-<SplashScreen logoUrl={getLogoUrl()} duration={2200}/>
+<SplashScreen logoUrl={getLogoUrl()} duration={1000}/>
+
 <svelte:head>
-    <title>À propos - Restaurant Le Moulin à Windsor</title>
-    <meta
-        name="description"
-        content="En savoir plus sur le Restaurant Le Moulin à Windsor, notre histoire, notre équipe et notre passion pour la cuisine de qualité."
-    />
+  <title>À propos — {settings?.siteName || 'Restaurant Le Moulin'} à Windsor</title>
+  <meta name="description" content="Découvrez l'histoire du Restaurant Le Moulin à Windsor. Depuis 2007, un lieu familial dédié à la cuisine locale et chaleureuse." />
+  <link rel="canonical" href="https://lemoulinwindsor.ca/a-propos" />
+
+  <!-- ===== OPEN GRAPH ===== -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Notre histoire — Restaurant Le Moulin" />
+  <meta property="og:description" content="Depuis 2007, Le Moulin est un véritable point de rassemblement familial à Windsor." />
+  <meta property="og:url" content="https://lemoulinwindsor.ca/a-propos" />
+  <meta property="og:image" content={getLogoUrl()} />
+  <meta property="og:locale" content="fr_CA" />
+  <meta property="og:site_name" content="Restaurant Le Moulin" />
+
+  <!-- ===== TWITTER CARD ===== -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Notre histoire — Restaurant Le Moulin" />
+  <meta name="twitter:description" content="Depuis 2007, Le Moulin est un lieu familial à Windsor." />
+  <meta name="twitter:image" content={getLogoUrl()} />
 </svelte:head>
+
 <Navbar {settings} {getLogoUrl} />
 <!-- ============ HERO ============ -->
 <section class="hero">

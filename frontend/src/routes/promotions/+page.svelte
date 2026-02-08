@@ -30,15 +30,28 @@
 </script>
 
 <svelte:head>
-	<title>Promotions | Restaurant Le Moulin</title>
-	<meta
-		name="description"
-		content="Découvrez nos promotions actuelles au Restaurant Le Moulin à Windsor."
-	/>
+  <title>Promotions — {settings?.siteName || 'Restaurant Le Moulin'}</title>
+  <meta name="description" content="Découvrez les promotions et offres spéciales du Restaurant Le Moulin à Windsor. Des rabais pensés pour vous faire plaisir." />
+  <link rel="canonical" href="https://lemoulinwindsor.ca/promotions" />
+
+  <!-- ===== OPEN GRAPH ===== -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Nos promotions — Restaurant Le Moulin" />
+  <meta property="og:description" content="Des offres spéciales au Restaurant Le Moulin à Windsor. Découvrez nos rabais du moment !" />
+  <meta property="og:url" content="https://lemoulinwindsor.ca/promotions" />
+  <meta property="og:image" content={getLogoUrl()} />
+  <meta property="og:locale" content="fr_CA" />
+  <meta property="og:site_name" content="Restaurant Le Moulin" />
+
+  <!-- ===== TWITTER CARD ===== -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Nos promotions — Restaurant Le Moulin" />
+  <meta name="twitter:description" content="Offres spéciales au Restaurant Le Moulin à Windsor." />
+  <meta name="twitter:image" content={getLogoUrl()} />
 </svelte:head>
 
 <!-- ========== SPLASH SCREEN (Animation d'entrée) ========== -->
-<SplashScreen logoUrl={getLogoUrl()} duration={2200}/>
+<SplashScreen logoUrl={getLogoUrl()} duration={1000}/>
 
 <Navbar {settings} {getLogoUrl}/>
 <!-- ============ HERO ============ -->

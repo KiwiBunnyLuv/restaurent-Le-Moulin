@@ -1,7 +1,6 @@
 // src/routes/sitemap.xml/+server.ts
-
 export function GET() {
-  const site = 'https://restaurantlemoulin.com'; // Change pour ton vrai domaine
+  const site = 'https://lemoulinwindsor.ca'; // ← domaine uniformisé
 
   const pages = [
     { url: '', priority: '1.0', changefreq: 'weekly' },
