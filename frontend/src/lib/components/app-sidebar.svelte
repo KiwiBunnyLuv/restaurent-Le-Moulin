@@ -36,7 +36,7 @@
 
 	async function logout() {
 		try {
-			await fetch('/logout', { 
+			await fetch('/admin/logout', { 
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -65,7 +65,7 @@
 
 							</div>
 							<div class="flex flex-col gap-0.5 leading-none">
-								<span class="font-medium">Restaurent le Moulin</span>
+								<span class="font-medium">Restaurant le Moulin</span>
 								<span class="">Administration</span>
 							</div>
 						</a>
