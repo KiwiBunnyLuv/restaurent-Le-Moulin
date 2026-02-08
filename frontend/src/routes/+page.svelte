@@ -1,6 +1,5 @@
 <script lang="ts">
-	//route : src/routes/+page.svelte
-	import { onMount } from 'svelte';
+	// route : src/routes/+page.svelte
 	import type { PageData } from './$types';
 	import Footer from '$lib/components/footer.svelte';
 	import ScrollReveal from '$lib/components/ScrollReveal.svelte';
@@ -25,9 +24,6 @@
 
 	// ========== FONCTIONS UTILITAIRES IMAGES ==========
 
-	/**
-	 * Génère l'URL de base d'un fichier Pocketbase
-	 */
 	function getFileUrl(collectionId: string, recordId: string, filename: string): string {
 		return `${pocketbaseUrl}/api/files/${collectionId}/${recordId}/${filename}`;
 	}
@@ -39,19 +35,16 @@
 		return '';
 	}
 
-	// Helper pour obtenir l'URL d'un média par index dans le tableau
 	function getMediaUrlByIndex(index: number): string {
 		if (Array.isArray(media) && media[index]?.file) {
 			return getFileUrl('Media', media[index].id, media[index].file);
 		}
-		// Fallback: si media est un seul objet, retourner son URL
 		if (!Array.isArray(media) && media?.file) {
 			return getFileUrl('Media', media.id, media.file);
 		}
 		return '';
 	}
 
-	// Helper pour obtenir l'alt d'un média par index
 	function getMediaAltByIndex(index: number): string {
 		if (Array.isArray(media) && media[index]?.alt) {
 			return media[index].alt;
@@ -80,25 +73,6 @@
 		return menus.find((m: any) => m.Categorie?.toLowerCase() === category.toLowerCase());
 	}
 
-	/**
-	 * Retourne l'URL du PDF "menu complet" (tu peux adapter la catégorie ou
-	 * créer une entrée spéciale dans ta BD, ex: catégorie "Complet")
-	 */
-	function getMenuCompletPdfUrl(): string {
-		// Option 1 : chercher une catégorie "Complet" ou "Menu complet"
-		const menuComplet = menus.find(
-			(m: any) =>
-				m.Categorie?.toLowerCase() === 'complet' || m.Categorie?.toLowerCase() === 'menu complet'
-		);
-		if (menuComplet) return getMenuPdfUrl(menuComplet);
-
-		// Option 2 (fallback) : utiliser le menu Diner/souper
-		const menuDiner = getMenuByCategory('Diner/souper');
-		if (menuDiner) return getMenuPdfUrl(menuDiner);
-
-		return '#';
-	}
-
 	function sortHoraires(h: any[]): any[] {
 		const jourOrder = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 		return [...h].sort((a, b) => jourOrder.indexOf(a.Jour) - jourOrder.indexOf(b.Jour));
@@ -108,7 +82,6 @@
 </script>
 
 <svelte:head>
-	<!-- ===== META DE BASE ===== -->
 	<title>{settings?.siteName || 'Le Moulin'} - Restaurant à Windsor</title>
 	<meta
 		name="description"
@@ -119,29 +92,26 @@
 		content="restaurant, Windsor, Québec, Le Moulin, déjeuner, dîner, souper, cuisine locale"
 	/>
 
-	<!-- ===== OPEN GRAPH (Facebook, iMessage, etc.) ===== -->
 	<meta property="og:type" content="restaurant" />
 	<meta property="og:title" content="Restaurant Le Moulin — Windsor" />
 	<meta property="og:description" content="Local. Chaleureux. Délicieux. Depuis 2007 à Windsor." />
 	<meta property="og:url" content="https://lemoulinwindsor.ca" />
-	<meta property="og:image" content={getMediaUrlByIndex(8)} />
+	<meta property="og:image" content={getMediaUrlByIndex(0)} />
 	<meta property="og:locale" content="fr_CA" />
 	<meta property="og:site_name" content="Restaurant Le Moulin" />
 
-	<!-- ===== TWITTER CARD ===== -->
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="Restaurant Le Moulin — Windsor" />
 	<meta name="twitter:description" content="Local. Chaleureux. Délicieux. Depuis 2007." />
-	<meta name="twitter:image" content={getMediaUrlByIndex(8)} />
+	<meta name="twitter:image" content={getMediaUrlByIndex(0)} />
 
-	<!-- ===== SCHEMA.ORG (données structurées pour Google) ===== -->
 	{@html `<script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Restaurant",
     "name": "${settings?.siteName || 'Restaurant Le Moulin'}",
     "image": "${getMediaUrlByIndex(0)}",
-    "url": "https://lemoulinwindsor.com",
+    "url": "https://lemoulinwindsor.ca",
     "telephone": "${settings?.phone || ''}",
     "email": "${settings?.email || ''}",
     "address": {
@@ -175,34 +145,29 @@
   </script>`}
 </svelte:head>
 
-
-<!-- ========== SPLASH SCREEN (Animation d'entrée) ========== -->
 <SplashScreen logoUrl={getLogoUrl()} duration={1000} onComplete={onSplashComplete} />
 
-<!-- ========== HEADER / NAVIGATION ========== -->
 <Navbar {settings} {getLogoUrl} />
 
-<!-- ========== HERO SECTION ========== -->
 <section class="hero-parallax relative flex h-screen min-h-[600px] items-center justify-center">
 	<div class="absolute inset-0 bg-[var(--color-noir)]">
-		<!-- Hero image responsive -->
 		<ResponsiveImage
 			src={getMediaUrlByIndex(0)}
 			alt="Restaurant Le Moulin - Façade"
-			sizes={{ mobile: 800, tablet: 1200, desktop: 1920 }}
+			sizes={{ mobile: 720, tablet: 1200, desktop: 1600 }}
 			aspectRatio="16/9"
 			loading="eager"
 			fetchpriority="high"
 			decoding="sync"
 			className="opacity-70"
-            />
+		/>
 		<div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60"></div>
 	</div>
 
 	<div class="relative z-10 px-4 text-center text-[var(--color-creme)]">
-			<h1 class="mb-4 font-serif text-4xl tracking-wider sm:text-5xl md:text-7xl">
-				Restaurant le Moulin
-			</h1>
+		<h1 class="mb-4 font-serif text-4xl tracking-wider sm:text-5xl md:text-7xl">
+			Restaurant le Moulin
+		</h1>
 		<ScrollReveal direction="up" delay={200} duration={900} distance={20}>
 			<p class="mb-2 text-base tracking-wide sm:text-lg md:text-xl">
 				{settings?.address || '45, rue principal S, Windsor QC, J1S 2B4'}
@@ -219,7 +184,6 @@
 	</div>
 </section>
 
-<!-- ========== SECTION PRÉSENTATION ========== -->
 <section class="bg-[var(--color-creme)] px-6 pt-16 md:pt-20">
 	<div class="mx-auto my-24 max-w-4xl text-center md:my-48">
 		<h2 class="mb-8 font-serif text-3xl sm:text-4xl md:mb-12 md:text-5xl">
@@ -228,9 +192,7 @@
 		</h2>
 
 		<ScrollReveal direction="up" delay={300} duration={1000}>
-			<p
-				class="mx-auto mb-8 max-w-2xl text-base leading-relaxed text-[var(--color-noir)] md:mb-12 md:text-lg"
-			>
+			<p class="mx-auto mb-8 max-w-2xl text-base leading-relaxed text-[var(--color-noir)] md:mb-12 md:text-lg">
 				Depuis 2007, le Restaurant Le Moulin n'est pas seulement une adresse à Windsor, c'est un
 				véritable point de rassemblement familiale, un lieu les saveurs rencontrent les souvenirs.
 			</p>
@@ -241,15 +203,10 @@
 	</div>
 </section>
 
-<!-- ========== SECTION MENU ========== -->
-<section
-	id="menu"
-	class="mb-16 bg-[var(--color-creme)] px-6 py-12 pb-24 md:mb-32 md:pb-16 md:pb-48"
->
+<section id="menu" class="mb-16 bg-[var(--color-creme)] px-6 py-12 pb-24 md:mb-32 md:pb-16 md:pb-48">
 	<div class="mx-auto max-w-5xl">
-		<!-- Desktop: Grid 3 colonnes avec images + boutons -->
 		<div class="mb-6 hidden gap-6 md:grid md:grid-cols-3">
-			{#each ['Déjeuner', 'Diner/souper', 'Boisson'] as category, i}
+			{#each ['Déjeuner', 'Diner/souper', 'Boisson'] as category}
 				{@const menu = getMenuByCategory(category)}
 
 				<ScrollReveal direction="up" duration={500}>
@@ -264,7 +221,7 @@
 								<ResponsiveImage
 									src={getMenuImageUrl(menu)}
 									alt={category}
-									sizes={{ mobile: 360, tablet: 360, desktop: 360 }}
+									sizes={{ mobile: 189, tablet: 189, desktop: 189 }}
 									aspectRatio="1/1"
 									className="group-hover:scale-105 transition-transform duration-500"
 								/>
@@ -287,7 +244,6 @@
 			{/each}
 		</div>
 
-		<!-- Mobile: Boutons empilés sans images -->
 		<div class="mb-6 flex flex-col items-center gap-4 md:hidden">
 			{#each ['Déjeuner', 'Diner/souper', 'Boisson'] as category, i}
 				{@const menu = getMenuByCategory(category)}
@@ -306,13 +262,10 @@
 			{/each}
 		</div>
 
-		<!-- Boutons d'action centrés -->
 		<ScrollReveal direction="up" delay={350} duration={600}>
 			<div class="mt-8 flex flex-col items-center gap-4 md:mt-0">
 				<div class="w-full max-w-xs md:w-auto">
-					<a href="/promotions" class="btn-dore block w-full text-center md:px-12">
-						Voir nos promotions
-					</a>
+					<a href="/promotions" class="btn-dore block w-full text-center md:px-12">Voir nos promotions</a>
 				</div>
 				<div class="w-full max-w-xs md:w-auto">
 					<a
@@ -329,26 +282,19 @@
 	</div>
 </section>
 
-<!-- ========== PHOTO TRANSITION (image qui se fond dans le crème) ========== -->
 <section class="relative bg-[var(--color-creme)]">
 	<div class="relative h-[25vh] w-full overflow-hidden md:h-[45vh]">
-		<!-- Image transition responsive -->
 		<ResponsiveImage
 			src={getMediaUrlByIndex(3)}
 			alt={getMediaAltByIndex(3)}
-			sizes={{ mobile: 800, tablet: 1200, desktop: 1600 }}
+			sizes={{ mobile: 720, tablet: 1200, desktop: 1440 }}
 			aspectRatio="21/9"
 		/>
-		<!-- Fondu bas : image → crème -->
-		<div
-			class="absolute inset-0 bg-gradient-to-b from-[var(--color-creme)]/20 via-transparent to-[var(--color-creme)]"
-		></div>
+		<div class="absolute inset-0 bg-gradient-to-b from-[var(--color-creme)]/20 via-transparent to-[var(--color-creme)]"></div>
 	</div>
 </section>
 
-<!-- ========== SECTION AMBIANCE ========== -->
 <section class="relative bg-[var(--color-creme)]">
-	<!-- Titre — grande marge au-dessus, très grande marge en dessous -->
 	<div class="my-12 px-6 pt-24 pb-16 md:my-16 md:pt-36 md:pb-40">
 		<ScrollReveal direction="up" duration={800}>
 			<div class="text-center">
@@ -362,32 +308,28 @@
 		</ScrollReveal>
 	</div>
 
-	<!-- Galerie photos — fidèle à la maquette -->
 	<div class="mx-auto max-w-3xl px-4 md:px-8 lg:px-12">
-		<!-- 1. Grande photo (intérieur du resto, lanternes) -->
 		<ScrollReveal direction="up" duration={900}>
 			<div class="aspect-[4/3] w-full overflow-hidden">
 				<ResponsiveImage
 					src={getMediaUrlByIndex(1)}
 					alt={getMediaAltByIndex(1)}
-					sizes={{ mobile: 600, tablet: 800, desktop: 1200 }}
+					sizes={{ mobile: 560, tablet: 800, desktop: 1200 }}
 					aspectRatio="4/3"
 				/>
 			</div>
 		</ScrollReveal>
 
-		<!-- Gap entre la grande photo et les 3 petites -->
 		<div class="h-3 md:h-4"></div>
 
-		<!-- 2. Trois petites photos en rangée -->
 		<ScrollReveal direction="up" duration={900}>
 			<div class="grid grid-cols-3 gap-3 md:gap-2">
-				{#each [2, 4, 6] as idx, i}
+				{#each [2, 4, 6] as idx}
 					<div class="aspect-square overflow-hidden">
 						<ResponsiveImage
 							src={getMediaUrlByIndex(idx)}
 							alt={getMediaAltByIndex(idx)}
-							sizes={{ mobile: 240, tablet: 320, desktop: 400 }}
+							sizes={{ mobile: 220, tablet: 300, desktop: 360 }}
 							aspectRatio="1/1"
 						/>
 					</div>
@@ -395,22 +337,19 @@
 			</div>
 		</ScrollReveal>
 
-		<!-- Gap avant la photo horizontale -->
 		<div class="h-3 md:h-4"></div>
 
-		<!-- 3. Photo horizontale large (le chef) -->
 		<ScrollReveal direction="up" duration={900}>
 			<div class="aspect-[2.2/1] w-full overflow-hidden">
 				<ResponsiveImage
 					src={getMediaUrlByIndex(7)}
 					alt={getMediaAltByIndex(7)}
-					sizes={{ mobile: 600, tablet: 800, desktop: 1200 }}
+					sizes={{ mobile: 560, tablet: 800, desktop: 1200 }}
 					aspectRatio="2.2/1"
 				/>
 			</div>
 		</ScrollReveal>
 
-		<!-- Bouton Voir sur Instagram -->
 		<ScrollReveal direction="up" delay={200} duration={700}>
 			<div class="mt-4 flex justify-center">
 				<a
@@ -431,7 +370,6 @@
 	</div>
 </section>
 
-<!-- ========== SECTION COMMANDER ========== -->
 <section id="commander" class="my-16 bg-[var(--color-creme)] px-6 py-16 md:my-32 md:py-24 lg:py-36">
 	<div class="mx-auto max-w-2xl text-center">
 		<ScrollReveal direction="up" duration={800}>
@@ -455,7 +393,6 @@
 	</div>
 </section>
 
-<!-- ========== FOOTER ========== -->
 <section id="horaires" class="h-16">
 	<Footer {settings} {sortedHoraires} />
 </section>
