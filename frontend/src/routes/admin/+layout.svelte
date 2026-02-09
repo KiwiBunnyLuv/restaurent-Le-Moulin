@@ -1,3 +1,4 @@
+
 <script lang="ts">
 	import { onDestroy } from 'svelte';
 	import { onMount } from 'svelte';
@@ -12,5 +13,6 @@
 		document.body.classList.remove(bodyClass);
 	});
 </script>
+
 
 <slot />

@@ -64,35 +64,44 @@
 					</div>
 				</div>
 
-				<a href="/Contact" class="transition-colors hover:text-[var(--color-dore)]">
-					Nous joindre
-				</a>
-
 				<!-- Téléphone -->
 				{#if settings?.phone}
 					<div class="flex items-center gap-3 md:gap-4">
 						<Phone class="h-5 w-5 flex-shrink-0 text-[var(--color-dore)]" />
-						<a
-							href="tel:{settings.phone}"
-							class="text-base transition-colors hover:text-[var(--color-dore)] md:text-lg"
-						>
-							{settings.phone}
-						</a>
+						<div class="flex items-center gap-3">
+							<p class="text-xs tracking-wider text-[var(--color-gris)] md:text-sm">Téléphone</p>
+							<a
+								href="tel:{settings.phone}"
+								class="text-base transition-colors hover:text-[var(--color-dore)] md:text-lg"
+							>
+								{settings.phone}
+							</a>
+						</div>
 					</div>
 				{/if}
 
-				<!-- Email -->
+				<!-- Courriel -->
 				{#if settings?.email}
 					<div class="flex items-center gap-3 md:gap-4">
 						<Mail class="h-5 w-5 flex-shrink-0 text-[var(--color-dore)]" />
-						<a
-							href="mailto:{settings.email}"
-							class="text-base break-all transition-colors hover:text-[var(--color-dore)] md:text-lg"
-						>
-							{settings.email}
-						</a>
+						<div class="flex items-center gap-3">
+							<p class="text-xs tracking-wider text-[var(--color-gris)] md:text-sm">Courriel</p>
+							<a
+								href="mailto:{settings.email}"
+								class="text-base break-all transition-colors hover:text-[var(--color-dore)] md:text-lg"
+							>
+								{settings.email}
+							</a>
+						</div>
 					</div>
 				{/if}
+
+				<a
+					href="/Contact"
+					class="self-center text-[var(--color-dore)] transition-colors hover:text-[var(--color-dore)]"
+				>
+					Nous joindre
+				</a>
 			</div>
 		</div>
 	</div>
