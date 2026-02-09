@@ -20,6 +20,6 @@
   try {
     $app.newMailClient().send(message);
   } catch (error) {
-    $app.logger().error("Erreur envoi email contact", { error });
+    $app.logger().error("Erreur envoi email contact ", { error });
   }
 }, "Contact_Messages");
