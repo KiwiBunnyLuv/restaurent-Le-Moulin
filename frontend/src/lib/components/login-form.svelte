@@ -9,6 +9,15 @@
 		FieldDescription,
 	} from "$lib/components/ui/field/index.js";
 
+	const { form = null } = $props<{
+		form?: {
+			error?: string;
+			requireCaptcha?: boolean;
+			captchaQuestion?: string;
+			captchaToken?: string;
+			retryAfterMs?: number;
+		} | null;
+	}>();
 	const id = $props.id();
 </script>
 
@@ -44,9 +53,34 @@
 					</Field>
 				<Field>
 					<Button type="submit" class="w-full">Login</Button>
-					
-
 				</Field>
+
+				{#if form?.requireCaptcha}
+					<Field>
+						<FieldLabel for={`captcha-${id}`}>
+							{form.captchaQuestion ?? 'Captcha'}
+						</FieldLabel>
+						<Input
+							id={`captcha-${id}`}
+							name="captcha_answer"
+							type="text"
+							autocomplete="off"
+							required
+						/>
+						<input type="hidden" name="captcha_token" value={form?.captchaToken ?? ''} />
+						{#if form?.retryAfterMs}
+							<FieldDescription>
+								Réessayez dans {Math.ceil(form.retryAfterMs / 1000)} secondes.
+							</FieldDescription>
+						{/if}
+					</Field>
+				{/if}
+
+				{#if form?.error}
+					<Field>
+						<p class="text-sm text-red-600">{form.error}</p>
+					</Field>
+				{/if}
 			</FieldGroup>
 		</form>
 	</Card.Content>
