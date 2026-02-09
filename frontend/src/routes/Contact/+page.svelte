@@ -13,6 +13,8 @@
 	let settings = $derived(data.settings);
 	let horaires = $derived(data.horaires);
 	let pocketbaseUrl = $derived(data.pocketbaseUrl);
+	let contactCaptcha = $derived(form?.captcha ?? data.contactCaptcha);
+	let retryAfterMs = $derived((form as { retryAfterMs?: number } | null)?.retryAfterMs ?? null);
 
 	// ========== ÉTAT DU FORMULAIRE ==========
 	let isSubmitting = $state(false);
@@ -150,6 +152,17 @@
 							}}
 							class="space-y-6"
 						>
+							<div class="absolute left-[-10000px] top-auto w-px h-px overflow-hidden" aria-hidden="true">
+								<label for="company">Company</label>
+								<input
+									type="text"
+									id="company"
+									name="company"
+									tabindex="-1"
+									autocomplete="off"
+								/>
+							</div>
+
 							<!-- Nom -->
 							<div>
 								<label for="nom" class="block text-xs tracking-wider text-[var(--color-gris)] mb-2 uppercase">
@@ -197,9 +210,31 @@
 								>{form?.message ?? ''}</textarea>
 							</div>
 
+							<!-- Captcha -->
+							<div>
+								<label for="captcha" class="block text-xs tracking-wider text-[var(--color-gris)] mb-2 uppercase">
+									{contactCaptcha?.question ?? 'Captcha'}
+								</label>
+								<input
+									type="text"
+									id="captcha"
+									name="captcha_answer"
+									required
+									autocomplete="off"
+									placeholder="Votre réponse"
+									class="contact-input"
+								/>
+								<input type="hidden" name="captcha_token" value={contactCaptcha?.token ?? ''} />
+							</div>
+
 							<!-- Erreur -->
 							{#if form?.error}
 								<p class="text-red-600 text-sm">{form.error}</p>
+							{/if}
+							{#if retryAfterMs}
+								<p class="text-[var(--color-gris)] text-xs">
+									Réessayez dans {Math.ceil(retryAfterMs / 1000)} secondes.
+								</p>
 							{/if}
 
 							<!-- Bouton -->
