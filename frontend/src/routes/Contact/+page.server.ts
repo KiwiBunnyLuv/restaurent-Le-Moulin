@@ -1,6 +1,13 @@
 import type { PageServerLoad, Actions } from './$types';
 import { fail } from '@sveltejs/kit';
 import { url } from '$lib/pb';
+import {
+	checkContactAttempt,
+	createCaptcha,
+	getClientId,
+	recordContactAttempt,
+	verifyCaptcha
+} from '$lib/server/security';
 
 const POCKETBASE_URL = url;
 
@@ -19,14 +26,16 @@ export const load: PageServerLoad = async ({ fetch }) => {
 		return {
 			settings,
 			horaires,
-			pocketbaseUrl: POCKETBASE_URL
+			pocketbaseUrl: POCKETBASE_URL,
+			contactCaptcha: createCaptcha()
 		};
 	} catch (error) {
 		console.error('Erreur lors du chargement des données:', error);
 		return {
 			settings: null,
 			horaires: [],
-			pocketbaseUrl: POCKETBASE_URL
+			pocketbaseUrl: POCKETBASE_URL,
+			contactCaptcha: createCaptcha()
 		};
 	}
 };
@@ -37,6 +46,13 @@ export const actions: Actions = {
 		const nom = formData.get('nom')?.toString().trim() || '';
 		const email = formData.get('email')?.toString().trim() || '';
 		const message = formData.get('message')?.toString().trim() || '';
+		const honeypot = formData.get('company')?.toString().trim() || '';
+		const captchaToken = formData.get('captcha_token')?.toString() || '';
+		const captchaAnswer = formData.get('captcha_answer')?.toString() || '';
+
+		if (honeypot) {
+			return { success: true };
+		}
 
 		// ===== Validation =====
 		if (!nom || !email || !message) {
@@ -44,7 +60,8 @@ export const actions: Actions = {
 				error: 'Tous les champs sont requis.',
 				nom,
 				email,
-				message
+				message,
+				captcha: createCaptcha()
 			});
 		}
 
@@ -55,9 +72,36 @@ export const actions: Actions = {
 				error: 'Veuillez entrer une adresse courriel valide.',
 				nom,
 				email,
-				message
+				message,
+				captcha: createCaptcha()
 			});
 		}
+
+		const clientKey = getClientId(request, email.toLowerCase());
+		const attemptState = checkContactAttempt(clientKey);
+		if (attemptState.blocked) {
+			return fail(429, {
+				error: 'Trop de messages. Veuillez réessayer plus tard.',
+				nom,
+				email,
+				message,
+				captcha: createCaptcha(),
+				retryAfterMs: attemptState.retryAfterMs
+			});
+		}
+
+		const validCaptcha = verifyCaptcha(captchaToken, captchaAnswer);
+		if (!validCaptcha) {
+			return fail(400, {
+				error: 'Veuillez résoudre le captcha pour envoyer le message.',
+				nom,
+				email,
+				message,
+				captcha: createCaptcha()
+			});
+		}
+
+		recordContactAttempt(clientKey);
 
 		try {
 			// ===== Sauvegarder dans PocketBase =====
@@ -76,7 +120,8 @@ export const actions: Actions = {
 					error: 'Une erreur est survenue. Veuillez réessayer.',
 					nom,
 					email,
-					message
+					message,
+					captcha: createCaptcha()
 				});
 			}
 
@@ -87,7 +132,8 @@ export const actions: Actions = {
 				error: 'Une erreur est survenue. Veuillez réessayer.',
 				nom,
 				email,
-				message
+				message,
+				captcha: createCaptcha()
 			});
 		}
 	}
