@@ -1,7 +1,7 @@
 // pb_hooks/main.pb.js
 onRecordAfterCreateRequest((e) => {
-    // Vérifie que c'est bien la collection "contact_messages"
-    if (e.record.collection().name !== "contact_messages") {
+    // Vérifie que c'est bien la collection "Contact_Messages"
+    if (e.record.collection().name !== "Contact_Messages") {
         return
     }
 
@@ -13,18 +13,21 @@ onRecordAfterCreateRequest((e) => {
             address: $app.settings().meta.senderAddress,
             name: $app.settings().meta.senderName,
         },
-        to: [{address: "restaurant@lemoulinwindsor.c"}],
+        to: [{address: "restaurant@lemoulinwindsor.ca"}],
         subject: "🍽️ Nouveau message de contact - Le Moulin",
         html: `
             <h2>Nouveau message de contact</h2>
-            <p><strong>Nom:</strong> ${record.get("name")}</p>
+            <p><strong>Nom:</strong> ${record.get("nom")}</p>
             <p><strong>Email:</strong> ${record.get("email")}</p>
-            <p><strong>Téléphone:</strong> ${record.get("phone")}</p>
             <p><strong>Message:</strong></p>
             <p>${record.get("message")}</p>
         `,
     })
 
     // Envoie l'email
-    $app.newMailClient().send(message)
-}, "contact_messages")
+    try {
+        $app.newMailClient().send(message)
+    } catch (error) {
+        $app.logger().error("Erreur envoi email contact", { error })
+    }
+}, "Contact_Messages")
