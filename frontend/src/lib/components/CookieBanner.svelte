@@ -243,7 +243,7 @@
 	}
 
 	.cookie-overlay.active {
-		background: rgba(0, 0, 0, 0.12);
+	background: transparent !important;	
 	}
 
 	/* =============================

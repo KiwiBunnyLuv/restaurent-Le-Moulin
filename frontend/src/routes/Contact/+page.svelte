@@ -376,7 +376,6 @@
 
 <style>
 
-
 	/* ===== Inputs du formulaire ===== */
 	.contact-input {
 		width: 100%;

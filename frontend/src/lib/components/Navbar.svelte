@@ -59,7 +59,7 @@
 <header
 	class="fixed top-0 left-0 right-0 z-50 px-4 md:px-6 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
 		{visible ? 'translate-y-0' : '-translate-y-full'}
-		{atTop ? 'py-4 bg-transparent' : 'pt-1 bg-black/40 backdrop-blur-md shadow-lg'}"
+		{atTop ? 'pybg-transparent' : 'pt-1 bg-black/40 backdrop-blur-md shadow-lg'}"
 >
 	<!-- Desktop Navigation -->
 	<nav class="hidden md:flex max-w-xl mx-auto items-center justify-between">
