@@ -1,7 +1,7 @@
-// pb_hooks/main.pb.js
+ pb_hooks/main.pb.js
 onRecordAfterCreateRequest((e) => {
     // Vérifie que c'est bien la collection "Contact_Messages"
-    if (e.record.collection().name !== "Contact_Messages") {
+    if (e.record.collection().name !== "Contacts_Messages") {
         return
     }
 
